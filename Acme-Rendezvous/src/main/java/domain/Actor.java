@@ -35,7 +35,7 @@ public abstract class Actor extends DomainEntity {
 	private String	phoneNumber;
 	private String	email;
 
-	//Prueba 1
+	//Prueba 1, 2
 
 	@NotBlank
 	public String getName() {

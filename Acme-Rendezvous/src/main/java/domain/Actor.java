@@ -28,7 +28,7 @@ import security.UserAccount;
 public abstract class Actor extends DomainEntity {
 
 	// Attributes -------------------------------------------------------------
-
+	//Modificacion
 	private String	name;
 	private String	surname;
 	private String	postalAddress;

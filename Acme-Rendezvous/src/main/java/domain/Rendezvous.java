@@ -16,6 +16,7 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -32,7 +33,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public abstract class Rendezvous extends DomainEntity {
+public class Rendezvous extends DomainEntity {
 
 	// Attributes -------------------------------------------------------------
 
@@ -84,14 +85,15 @@ public abstract class Rendezvous extends DomainEntity {
 		this.moment = moment;
 	}
 
-	public Location getLocation() {
+	public Location getGpsCoordinates() {
 		return this.gpsCoordinates;
 	}
 
-	public void setLocation(final Location location) {
-		this.gpsCoordinates = location;
+	public void setGpsCoordinates(final Location gpsCoordinates) {
+		this.gpsCoordinates = gpsCoordinates;
 	}
 	
+	@ElementCollection
 	public Collection<String> getListAttendants(){
 		return this.listAttendants;
 	}

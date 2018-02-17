@@ -16,6 +16,7 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
@@ -28,7 +29,7 @@ import security.UserAccount;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public abstract class Comment extends DomainEntity {
+public class Comment extends DomainEntity {
 
 	// Attributes -------------------------------------------------------------
 
@@ -47,7 +48,7 @@ public abstract class Comment extends DomainEntity {
 		this.username = username;
 	}
 
-	@NotBlank
+
 	public Date getMoment() {
 		return this.moment;
 	}
@@ -73,6 +74,7 @@ public abstract class Comment extends DomainEntity {
 		this.text = text;
 	}
 
+	@ElementCollection
 	public Collection<String> getReplies() {
 		return this.replies;
 	}
@@ -84,17 +86,4 @@ public abstract class Comment extends DomainEntity {
 
 	// Relationships ----------------------------------------------------------
 
-	private UserAccount	userAccount;
-
-
-	@NotNull
-	@Valid
-	@OneToOne(cascade = CascadeType.ALL, optional = false)
-	public UserAccount getUserAccount() {
-		return this.userAccount;
-	}
-
-	public void setUserAccount(final UserAccount userAccount) {
-		this.userAccount = userAccount;
-	}
 }

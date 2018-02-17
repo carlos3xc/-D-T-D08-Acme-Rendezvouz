@@ -18,7 +18,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Embeddable
 @Access(AccessType.PROPERTY)
-public abstract class Location extends DomainEntity {
+public class Location {
 
 	// Attributes -------------------------------------------------------------
 

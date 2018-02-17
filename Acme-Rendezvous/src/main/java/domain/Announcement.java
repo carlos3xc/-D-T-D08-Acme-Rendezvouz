@@ -24,7 +24,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public abstract class Announcement extends DomainEntity {
+public class Announcement extends DomainEntity {
 
 	// Attributes -------------------------------------------------------------
 

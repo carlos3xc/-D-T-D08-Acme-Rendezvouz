@@ -16,6 +16,6 @@ import javax.persistence.Entity;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public abstract class User extends Actor {
+public class User extends Actor {
 
 }

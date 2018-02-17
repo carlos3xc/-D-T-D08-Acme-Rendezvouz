@@ -18,7 +18,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public abstract class Answer extends DomainEntity {
+public class Answer extends DomainEntity {
 
 	// Attributes -------------------------------------------------------------
 

@@ -10,6 +10,9 @@
 
 package domain;
 
+import java.util.Collection;
+import java.util.Date;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
@@ -18,64 +21,64 @@ import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.URL;
 
 import security.UserAccount;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public abstract class Actor extends DomainEntity {
+public abstract class Comment extends DomainEntity {
 
 	// Attributes -------------------------------------------------------------
 
-	private String	name;
-	private String	surname;
-	private String	postalAddress;
-	private String	phoneNumber;
-	private String	email;
+	private String				username;
+	private Date				moment;
+	private String				text;
+	private String				picture;
+	private Collection<String>	replies;
 
 	@NotBlank
-	public String getName() {
-		return this.name;
+	public String getUsername() {
+		return this.username;
 	}
 
-	public void setName(final String name) {
-		this.name = name;
+	public void setUsername(final String username) {
+		this.username = username;
 	}
 
 	@NotBlank
-	public String getSurname() {
-		return this.surname;
+	public Date getMoment() {
+		return this.moment;
 	}
 
-	public void setSurname(final String surname) {
-		this.surname = surname;
+	public void setMoment(final Date moment) {
+		this.moment = moment;
+	}
+	
+	@URL
+	public String getPicture() {
+		return this.picture;
 	}
 
-	public String getPostalAddress() {
-		return this.postalAddress;
+	public void setPicture(final String picture) {
+		this.picture = picture;
 	}
 
-	public void setPostalAddress(final String postalAddress) {
-		this.postalAddress = postalAddress;
+	public String getText() {
+		return this.text;
 	}
 
-	public String getPhoneNumber() {
-		return this.phoneNumber;
+	public void setText(final String text) {
+		this.text = text;
 	}
 
-	public void setPhoneNumber(final String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public Collection<String> getReplies() {
+		return this.replies;
 	}
 
-	@Email
-	public String getEmail() {
-		return this.email;
-	}
-
-	public void setEmail(final String email) {
-		this.email = email;
+	public void setReplies(final Collection<String> replies) {
+		this.replies = replies;
 	}
 
 

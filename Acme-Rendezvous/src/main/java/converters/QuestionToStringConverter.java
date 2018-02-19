@@ -4,12 +4,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import domain.Administrator;
-import domain.Announcement;
-import domain.Answer;
-import domain.Comment;
 import domain.Question;
-import domain.User;
 
 @Component
 @Transactional

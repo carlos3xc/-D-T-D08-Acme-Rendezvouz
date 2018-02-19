@@ -5,15 +5,10 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.AdministratorRepository;
-import repositories.AnnouncementRepository;
-import repositories.AnswerRepository;
-import repositories.UserRepository;
 
-import domain.Administrator;
-import domain.Announcement;
+import repositories.AnswerRepository;
+
 import domain.Answer;
-import domain.User;
 
 @Component
 @Transactional

@@ -6,10 +6,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import repositories.AdministratorRepository;
-import repositories.UserRepository;
 
 import domain.Administrator;
-import domain.User;
 
 @Component
 @Transactional

@@ -8,7 +8,7 @@
  * http://www.tdg-seville.info/License.html
  */
 
-package sample;
+package services;
 
 import javax.transaction.Transactional;
 
@@ -25,9 +25,11 @@ import utilities.AbstractTest;
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class SampleTest extends AbstractTest {
+public class RendezvousServiceTest extends AbstractTest {
 
-	// System under test ------------------------------------------------------
+	// Support Services ---------------------------------------------------------------------------------------------------
+	
+	
 
 	// Tests ------------------------------------------------------------------
 
@@ -36,7 +38,7 @@ public class SampleTest extends AbstractTest {
 	// it using JUnit.
 
 	@Test
-	public void samplePositiveTest() {
+	public void createTest() {
 		Assert.isTrue(true);
 	}
 

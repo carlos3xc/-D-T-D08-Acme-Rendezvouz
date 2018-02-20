@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.ArrayList;
@@ -16,124 +17,121 @@ import domain.Announcement;
 import domain.Comment;
 import domain.Question;
 import domain.Rendezvous;
-import domain.User;
 
 @Service
 @Transactional
 public class RendezvousService {
 
 	// Managed repository --------------------------------------------------------------------------------------
-	
+
 	@Autowired
-	private RendezvousRepository rendezvousRepository;
-	
+	private RendezvousRepository	rendezvousRepository;
+
+
 	// Supporting service --------------------------------------------------------------------------------------
-	
+
 	@Autowired
-//	private UserService userService;
-	
+	//	private UserService userService;
 	// Constructor ---------------------------------------------------------------------------------------------
-	
-	public RendezvousService(){
+	public RendezvousService() {
 		super();
 	}
-	
+
 	// Simple CRUD methods -------------------------------------------------------------------------------------
-	
-	public Rendezvous create(){
-		Assert.isTrue(checkUser());
-		
+
+	public Rendezvous create() {
+		Assert.isTrue(this.checkUser());
+
 		Rendezvous result;
 		result = new Rendezvous();
-		
+
 		result.setListAttendants(new ArrayList<String>());
 		result.setAnnouncements(new ArrayList<Announcement>());
 		result.setComments(new ArrayList<Comment>());
 		result.setFinalMode(false);
 		result.setLinkedRendezvous(new ArrayList<Rendezvous>());
 		result.setQuestions(new ArrayList<Question>());
-		
+
 		return result;
 	}
-	
-	public Rendezvous save(Rendezvous result){
-		Assert.isTrue(checkUser());
+
+	public Rendezvous save(final Rendezvous result) {
+		Assert.isTrue(this.checkUser());
 		Assert.notNull(result);
-		
-		return rendezvousRepository.save(result);
+
+		return this.rendezvousRepository.save(result);
 	}
-	
-	public void delete(Rendezvous result){
-		Assert.isTrue(checkUser() || checkAdmin());
+
+	public void delete(final Rendezvous result) {
+		Assert.isTrue(this.checkUser() || this.checkAdmin());
 		Assert.isTrue(!result.getFinalMode());
-		
+
 		result.setFinalMode(true);
 		result.setFlag("DELETED");
-		
-		rendezvousRepository.save(result);
+
+		this.rendezvousRepository.save(result);
 	}
-	
-	public Collection<Rendezvous> findAll(){
-		return rendezvousRepository.findAll();
+
+	public Collection<Rendezvous> findAll() {
+		return this.rendezvousRepository.findAll();
 	}
-	
-	public Rendezvous findOne(int id){
-		return rendezvousRepository.findOne(id);
+
+	public Rendezvous findOne(final int id) {
+		return this.rendezvousRepository.findOne(id);
 	}
-	
+
 	// Other business methods ----------------------------------------------------------------------------------
-	
-// Aqui falta un metodo en userService que se hara con queries, aunque este metodo tmbn se podria hacer con una query en
-// UserRepository
+
+	// Aqui falta un metodo en userService que se hara con queries, aunque este metodo tmbn se podria hacer con una query en
+	// UserRepository
 	/*
-	public Collection<Rendezvous> getRendezvousOwnedBy(UserAccount userAccount){
-		Collection<Rendezvous> result = new ArrayList<Rendezvous>();
-		User user = userService.findByUserAccount(userAccount);
-		for(Rendezvous r:this.findAll()){
-			if(r.getUser().equals(user)){
-				result.add(r);
-			}
-		}
-		return result;
-	}*/
-	
-	public Double getAverageRendezvousPerUser(){
-		return rendezvousRepository.getAverageRendezvousPerUser();
+	 * public Collection<Rendezvous> getRendezvousOwnedBy(UserAccount userAccount){
+	 * Collection<Rendezvous> result = new ArrayList<Rendezvous>();
+	 * User user = userService.findByUserAccount(userAccount);
+	 * for(Rendezvous r:this.findAll()){
+	 * if(r.getUser().equals(user)){
+	 * result.add(r);
+	 * }
+	 * }
+	 * return result;
+	 * }
+	 */
+
+	public Double getAverageRendezvousPerUser() {
+		return this.rendezvousRepository.getAverageRendezvousPerUser();
 	}
-	
-	public Double getDeviatonRendezvousCreatedPerUser(){
-		return rendezvousRepository.getDeviatonRendezvousCreatedPerUser();
+
+	public Double getDeviatonRendezvousCreatedPerUser() {
+		return this.rendezvousRepository.getDeviatonRendezvousCreatedPerUser();
 	}
-	
-	public Double getAverageRendezvousRSVdPerUser(){
-		return rendezvousRepository.getAverageRendezvousRSVdPerUser();
+
+	public Double getAverageRendezvousRSVdPerUser() {
+		return this.rendezvousRepository.getAverageRendezvousRSVdPerUser();
 	}
-	
-	public Double getDeviatonRendezvousRSVdPerUser(){
-		return rendezvousRepository.getDeviatonRendezvousRSVdPerUser();
+
+	public Double getDeviatonRendezvousRSVdPerUser() {
+		return this.rendezvousRepository.getDeviatonRendezvousRSVdPerUser();
 	}
-	
-	public Double getAverageRendezvousPerAnnouncement(){
-		return rendezvousRepository.getAverageRendezvousPerAnnouncement();
+
+	public Double getAverageRendezvousPerAnnouncement() {
+		return this.rendezvousRepository.getAverageRendezvousPerAnnouncement();
 	}
-	
-	private Boolean checkUser(){
+
+	private Boolean checkUser() {
 		Boolean result = false;
-		UserAccount ua = LoginService.getPrincipal();
-		for(Authority a:ua.getAuthorities()){
-			if(a.equals(Authority.USER))
+		final UserAccount ua = LoginService.getPrincipal();
+		for (final Authority a : ua.getAuthorities())
+			if (a.equals(Authority.USER))
 				result = true;
-		}
 		return result;
 	}
-	
-	private Boolean checkAdmin(){
+
+	private Boolean checkAdmin() {
 		Boolean result = false;
-		UserAccount ua = LoginService.getPrincipal();
-		for(Authority a:ua.getAuthorities()){
-			if(a.equals(Authority.ADMIN))
+		final UserAccount ua = LoginService.getPrincipal();
+		for (final Authority a : ua.getAuthorities())
+			if (a.equals(Authority.ADMIN))
 				result = true;
-		}
 		return result;
 	}
 }

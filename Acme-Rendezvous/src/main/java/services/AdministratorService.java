@@ -9,8 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import domain.Administrator;
+import domain.User;
 
 import repositories.AdministratorRepository;
+import security.UserAccount;
 
 
 @Service
@@ -38,7 +40,9 @@ public class AdministratorService {
 	public Administrator create(){
 		
 		
-		Administrator result;
+		Administrator result = new Administrator();
+		result.setName("name"+result.getId());
+		result.setSurname("surname" + result.getId());
 		result = new Administrator();
 		return result;
 	}
@@ -62,4 +66,15 @@ public class AdministratorService {
 	public Administrator findOne(int id){
 		return administratorRepository.findOne(id);
 	}
+	
+	
+//Extra methods
+	
+	public Administrator findByUserAccount(UserAccount u){
+		Administrator res = administratorRepository.FindByUserAccount(u);
+		
+		
+		return res;
+	}
+	
 }

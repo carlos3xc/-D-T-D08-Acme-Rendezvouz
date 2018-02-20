@@ -28,8 +28,6 @@ import utilities.AbstractTest;
 public class RendezvousServiceTest extends AbstractTest {
 
 	// Support Services ---------------------------------------------------------------------------------------------------
-	
-	
 
 	// Tests ------------------------------------------------------------------
 

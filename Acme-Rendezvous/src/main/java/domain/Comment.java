@@ -15,17 +15,17 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.CascadeType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
-
-import security.UserAccount;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -33,22 +33,14 @@ public class Comment extends DomainEntity {
 
 	// Attributes -------------------------------------------------------------
 
-	private String				username;
-	private Date				moment;
-	private String				text;
-	private String				picture;
-	private Collection<String>	replies;
-
-	@NotBlank
-	public String getUsername() {
-		return this.username;
-	}
-
-	public void setUsername(final String username) {
-		this.username = username;
-	}
+	private Date	moment;
+	private String	text;
+	private String	picture;
 
 
+	@Past
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getMoment() {
 		return this.moment;
 	}
@@ -56,7 +48,7 @@ public class Comment extends DomainEntity {
 	public void setMoment(final Date moment) {
 		this.moment = moment;
 	}
-	
+
 	@URL
 	public String getPicture() {
 		return this.picture;
@@ -66,6 +58,7 @@ public class Comment extends DomainEntity {
 		this.picture = picture;
 	}
 
+	@NotBlank
 	public String getText() {
 		return this.text;
 	}
@@ -74,16 +67,33 @@ public class Comment extends DomainEntity {
 		this.text = text;
 	}
 
-	@ElementCollection
-	public Collection<String> getReplies() {
-		return this.replies;
-	}
-
-	public void setReplies(final Collection<String> replies) {
-		this.replies = replies;
-	}
-
 
 	// Relationships ----------------------------------------------------------
+
+	private User				user;
+	private Collection<Comment>	remarkA;
+
+
+	@NotNull
+	@Valid
+	@ManyToOne(optional = false)
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(final User user) {
+		this.user = user;
+	}
+
+	@NotNull
+	@Valid
+	@ManyToOne(optional = false)
+	public Collection<Comment> getRemarkA() {
+		return this.remarkA;
+	}
+
+	public void setRemarkA(final Collection<Comment> remarkA) {
+		this.remarkA = remarkA;
+	}
 
 }

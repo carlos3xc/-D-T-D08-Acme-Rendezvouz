@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +28,6 @@ public class CommentService {
 		Assert.isTrue(this.checkUser());
 		Comment result;
 		result = new Comment();
-		final Collection<String> replies = new ArrayList<String>();
-		result.setReplies(replies);
 		return result;
 	}
 

@@ -14,7 +14,6 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -29,6 +28,7 @@ public class Question extends DomainEntity {
 
 	private String	text;
 
+
 	@NotBlank
 	public String getText() {
 		return this.text;
@@ -38,14 +38,15 @@ public class Question extends DomainEntity {
 		this.text = text;
 	}
 
+
 	// Relationships ----------------------------------------------------------
 
-	private Answer answer;
+	private Answer	answer;
 
 
 	@NotNull
 	@Valid
-	@OneToOne(optional=true, cascade = CascadeType.ALL)
+	@OneToOne(optional = true, cascade = CascadeType.ALL)
 	public Answer getAnswer() {
 		return this.answer;
 	}

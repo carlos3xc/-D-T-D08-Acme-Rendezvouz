@@ -41,11 +41,10 @@ public class UserService {
 		return result;
 	}
 	
-	public User save(User result){
-		User res = this.create();
-		userRepository.save(res);
-		
-		return res;
+	public void save(User result){
+
+		userRepository.save(result);
+
 	}
 	
 	public void delete(User res){

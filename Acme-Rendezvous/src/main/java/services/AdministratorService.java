@@ -47,11 +47,9 @@ public class AdministratorService {
 		return result;
 	}
 	
-	public Administrator save(Administrator result){
-		Administrator res = new Administrator();
-		administratorRepository.save(res);
+	public void save(Administrator result){
 		
-		return res;
+		administratorRepository.save(result);
 	}
 	
 	public void delete(Administrator res){

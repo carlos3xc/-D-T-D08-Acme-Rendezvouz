@@ -14,4 +14,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @Transactional
 public class AdministratorServiceTest {
 
+	
+	//TODO: falta el administratorServiceTest ,es basicamnete una copia del test de user pero cambiando el nombre.
 }

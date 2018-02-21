@@ -21,8 +21,10 @@
 	<button type="button" onclick="javascript: window.location.replace('${url}')"><spring:message code="actor.edit"/></button>
 
 	<security:authorize access="hasRole('USER')">
-	<h3>	<spring:message code="actor.rendezvouses" /></h3><br/>		
-		<display:table name="rendezvouses" id="row" requestURI="actor/list.do" pagesize="5">
+	<h3>	<spring:message code="actor.rendezvouses" /></h3><br/>	
+	
+	<!--  Lista de citas que ha atendido o va a atender el actor -->	
+		<display:table name="rendezvouses" id="row" requestURI="actor/rendezvous/list.do" pagesize="5">
 			<spring:message code="rendezvous.name" var="nameHeader"/>
 			<display:column property="name" title="${nameHeader}" sortable="false" />
 		
@@ -45,5 +47,22 @@
 			</jstl:forEach>
 			</display:column>
 		</display:table>	
+		
+		<!-- Lista de anuncios de las citas que el actor ha atendido -->
+
+	<display:table name="announcements" id="row" requestURI="actor/announcement/list.do" pagesize="5">
+	
+		<spring:message code="announcement.title" var="titleHeader"/>
+		<display:column property="title" title="${titleHeader}" sortable="false" />
+		
+		<spring:message code="announcement.description" var="descriptionHeader"/>
+		<display:column property="description" title="${descriptionHeader}" sortable="false" />
+		
+		<spring:message code="announcement.moment" var="momentHeader" />
+		<spring:message code="announcement.moment.format" var="formatMoment"/>
+		<display:column property="moment" title="${momentHeader }"  sortable="true"  format="{0,date,${formatMoment} }" />
+
+	</display:table>
+		
 	</security:authorize>
 	

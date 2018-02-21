@@ -1,7 +1,9 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,11 +30,17 @@ public class CommentService {
 		Assert.isTrue(this.checkUser());
 		Comment result;
 		result = new Comment();
+		result.setRemarkA(new ArrayList<Comment>());
 		return result;
 	}
 
 	public Comment save(final Comment comment) {
 		Assert.notNull(comment, "The comment must not be null.");
+		long millis;
+		Date moment;
+		millis = System.currentTimeMillis() - 1000;
+		moment = new Date(millis);
+		comment.setMoment(moment);
 		final Comment cSave = this.commentRepository.save(comment);
 		return cSave;
 	}

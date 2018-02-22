@@ -27,7 +27,7 @@ public class AdministratorService {
 	
 	// Supporting service --------------------------------------------------------------------------------------
 	
-	@Autowired
+	//@Autowired
 	//	private UserService userService;
 	
 	// Constructor ---------------------------------------------------------------------------------------------

@@ -30,7 +30,7 @@ public class RendezvousService {
 
 	// Supporting service --------------------------------------------------------------------------------------
 
-	@Autowired
+//	@Autowired
 	//	private UserService userService;
 	// Constructor ---------------------------------------------------------------------------------------------
 	public RendezvousService() {
@@ -100,7 +100,7 @@ public class RendezvousService {
 	public Double getAverageRendezvousPerUser() {
 		return this.rendezvousRepository.getAverageRendezvousPerUser();
 	}
-
+/*
 	public Double getDeviatonRendezvousCreatedPerUser() {
 		return this.rendezvousRepository.getDeviatonRendezvousCreatedPerUser();
 	}
@@ -115,7 +115,7 @@ public class RendezvousService {
 
 	public Double getAverageRendezvousPerAnnouncement() {
 		return this.rendezvousRepository.getAverageRendezvousPerAnnouncement();
-	}
+	}*/
 
 	private Boolean checkUser() {
 		Boolean result = false;

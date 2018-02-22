@@ -13,6 +13,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query("select count(r.user) from Rendezvous r")
 	Long NumberUsersCreatedRendezvouses();
 	
-	@Query("select u from User u where u.userAccount == ?1")
+	@Query("select u from User u where u.userAccount = ?1")
 	User FindByUserAccount(UserAccount u);
 }

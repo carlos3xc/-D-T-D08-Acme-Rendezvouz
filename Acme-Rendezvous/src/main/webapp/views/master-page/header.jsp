@@ -63,7 +63,7 @@
 				</a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="actor/info.do"><spring:message code="master.page.profile" /></a></li>				
+					<li><a href="profile/info.do"><spring:message code="master.page.profile" /></a></li>				
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>
 			</li>

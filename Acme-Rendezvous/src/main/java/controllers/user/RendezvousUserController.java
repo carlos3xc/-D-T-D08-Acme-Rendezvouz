@@ -80,9 +80,7 @@ public class RendezvousUserController extends AbstractController {
 	public ModelAndView create() {
 		ModelAndView result;
 		Rendezvous rendezvous = this.rendezvousService.create();
-		//Se asume que el actor va a atender a su propio rendezvous asi que se le añade a la lista de atendidos
-		rendezvous.getListAttendants().add(e);
-		
+		//Se asume que el actor va a atender a su propio rendezvous asi que se le añade a la lista de atendidos (implementado en servicio)
 
 		result = this.createEditModelAndView(rendezvous);
 		return result;
@@ -122,19 +120,41 @@ public class RendezvousUserController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final User user, final BindingResult binding) {
+//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+//	public ModelAndView delete(final User user, final BindingResult binding) {
+//		ModelAndView result;
+//
+//		try {
+//			this.userService.delete(rendezvous);
+//			result = new ModelAndView("redirect:list.do");
+//		} catch (final Throwable oops) {
+//			result = this.createEditModelAndView(rendezvous, "user.commit.error");
+//		}
+//		return result;
+//	}
+
+	//Extra methods
+	@RequestMapping(value = "/list", method = RequestMethod.POST, params = "reserve")
+	//TODO: si se quiere que se pueda hacer el registro desde la vista de list se cambia esto
+	public ModelAndView reserve(@Valid final Rendezvous rendezvous, final BindingResult binding) {
 		ModelAndView result;
 
-		try {
-			this.userService.delete(rendezvous);
-			result = new ModelAndView("redirect:list.do");
-		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(rendezvous, "user.commit.error");
-		}
+		rendezvous.getListAttendants().add((User)actorService.findByPrincipal());
+		//TODO: mirar esto por si hay que hacer un set de la lista de atendidos.
+		
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(rendezvous);
+		else
+			try {
+				this.rendezvousService.save(rendezvous);
+				result = new ModelAndView("redirect:list.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(rendezvous, "rendezvous.commit.error");
+			}
 		return result;
 	}
-
+	
+	
 	// Ancillary methods ------------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final Rendezvous rendezvous) {

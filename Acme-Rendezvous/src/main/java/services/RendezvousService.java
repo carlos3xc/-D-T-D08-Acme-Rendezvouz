@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,8 +32,9 @@ public class RendezvousService {
 
 	// Supporting service --------------------------------------------------------------------------------------
 
-//	@Autowired
-	//	private UserService userService;
+	@Autowired
+	private ActorService actorService;
+	
 	// Constructor ---------------------------------------------------------------------------------------------
 	public RendezvousService() {
 		super();
@@ -45,13 +47,18 @@ public class RendezvousService {
 
 		Rendezvous result;
 		result = new Rendezvous();
-
-		result.setListAttendants(new ArrayList<User>());
+		
+		//Se añade el usuario creador a la lista de antedidos por defecto.
+		List<User> list = new ArrayList<>();
+		list.add((User)actorService.findByPrincipal());
+		result.setListAttendants(list);
+		
 		result.setAnnouncements(new ArrayList<Announcement>());
 		result.setComments(new ArrayList<Comment>());
 		result.setFinalMode(false);
 		result.setLinkedRendezvous(new ArrayList<Rendezvous>());
 		result.setQuestions(new ArrayList<Question>());
+		result.setFlag("PASSED");
 
 		return result;
 	}

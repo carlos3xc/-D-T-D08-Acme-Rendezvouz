@@ -18,6 +18,7 @@ import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -42,7 +43,6 @@ public class Rendezvous extends DomainEntity {
 	private Date				moment;
 	private String				picture;
 	private Location			gpsCoordinates;
-	private Collection<String> 	listAttendants;
 	private Boolean 			finalMode;
 	private Boolean 			isAdultContent;
 	private String 				flag;
@@ -93,15 +93,6 @@ public class Rendezvous extends DomainEntity {
 		this.gpsCoordinates = gpsCoordinates;
 	}
 	
-	@ElementCollection
-	public Collection<String> getListAttendants(){
-		return this.listAttendants;
-	}
-	
-	public void setListAttendants(final Collection<String> la){
-		this.listAttendants = la;
-	}
-	
 	public Boolean getFinalMode(){
 		return this.finalMode;
 	}
@@ -134,6 +125,8 @@ public class Rendezvous extends DomainEntity {
 	private Collection<Rendezvous> 		linkedRendezvous;
 	private Collection<Question> 		questions;
 	private Collection<Announcement> 	announcements;
+	private Collection<User> 			listAttendants;
+
 
 
 	@NotNull
@@ -156,6 +149,16 @@ public class Rendezvous extends DomainEntity {
 	public void setComments(final Collection<Comment> comments){
 		this.comments = comments;
 	}
+	
+	@ManyToMany 
+	public Collection<User> getListAttendants(){
+		return this.listAttendants;
+	}
+	
+	public void setListAttendants(final Collection<User> listAttendants){
+		this.listAttendants = listAttendants;
+	}
+	
 	
 	@Valid
 	@OneToMany(cascade = CascadeType.ALL)

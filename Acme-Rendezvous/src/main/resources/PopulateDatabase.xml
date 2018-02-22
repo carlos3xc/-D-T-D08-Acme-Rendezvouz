@@ -249,8 +249,7 @@
 		</property>
 		<property name="listAttendants">
 			<list>
-				<value>user1</value>
-				<value>user2</value>
+				<ref bean="user2" />
 			</list>
 		</property>
 		<property name="announcements">
@@ -287,7 +286,7 @@
 		</property>
 		<property name="listAttendants">
 			<list>
-				<value>user2</value>
+				<ref bean="user2" />
 			</list>
 		</property>
 		<property name="announcements">
@@ -324,7 +323,7 @@
 		</property>
 		<property name="listAttendants">
 			<list>
-				<value>user1</value>
+				<ref bean="user1" />
 			</list>
 		</property>
 		<property name="announcements">
@@ -361,7 +360,7 @@
 		</property>
 		<property name="listAttendants">
 			<list>
-				<value>user1</value>
+				<ref bean="user1" />
 			</list>
 		</property>
 		<property name="announcements">

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import security.UserAccount;
 
 import domain.Administrator;
-import domain.User;
 
 
 @Repository

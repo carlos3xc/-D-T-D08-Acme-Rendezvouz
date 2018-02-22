@@ -17,6 +17,7 @@ import domain.Announcement;
 import domain.Comment;
 import domain.Question;
 import domain.Rendezvous;
+import domain.User;
 
 @Service
 @Transactional
@@ -45,7 +46,7 @@ public class RendezvousService {
 		Rendezvous result;
 		result = new Rendezvous();
 
-		result.setListAttendants(new ArrayList<String>());
+		result.setListAttendants(new ArrayList<User>());
 		result.setAnnouncements(new ArrayList<Announcement>());
 		result.setComments(new ArrayList<Comment>());
 		result.setFinalMode(false);

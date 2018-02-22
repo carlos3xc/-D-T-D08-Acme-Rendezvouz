@@ -114,53 +114,48 @@
 	<!-- Comments -->
 
 	<bean id="comment1" class="domain.Comment">
-		<property name="username" value="user1" />
+		<property name="user" ref="user1" />
 		<property name="moment" value="2012/09/10 12:15" />
 		<property name="text" value="Text-1" />
 		<property name="picture" value="http://www.google.com" />
 		<property name="replies">
 			<list>
-				<value>reply-1</value>
-				<value>reply-2</value>
 			</list>
 		</property>
 	</bean>
 
 	<bean id="comment2" class="domain.Comment">
-		<property name="username" value="user1" />
+		<property name="user" ref="user1" />
 		<property name="moment" value="2013/10/25 21:42" />
 		<property name="text" value="Text-2" />
 		<property name="picture" value="http://www.google.com" />
 		<property name="replies">
 			<list>
-				<value>reply-3</value>
-				<value>reply-4</value>
+
 			</list>
 		</property>
 	</bean>
 
 	<bean id="comment3" class="domain.Comment">
-		<property name="username" value="user2" />
+		<property name="user" ref="user2" />
 		<property name="moment" value="2014/12/03 04:37" />
 		<property name="text" value="Text-3" />
 		<property name="picture" value="http://www.google.com" />
 		<property name="replies">
 			<list>
-				<value>reply-5</value>
-				<value>reply-6</value>
+
 			</list>
 		</property>
 	</bean>
 
 	<bean id="comment4" class="domain.Comment">
-		<property name="username" value="user2" />
+		<property name="user" ref="user2" />
 		<property name="moment" value="2015/02/17 22:57" />
 		<property name="text" value="Text-4" />
 		<property name="picture" value="http://www.google.com" />
 		<property name="replies">
 			<list>
-				<value>reply-7</value>
-				<value>reply-8</value>
+				<ref bean="comment1" />
 			</list>
 		</property>
 	</bean>
@@ -218,22 +213,22 @@
 	
 	<bean id="answer1" class="domain.Answer">
 		<property name="text" value="Answer-1" />
-		<property name="username" value="user1" />
+		<property name="user" ref="user1" />
 	</bean>
 	
 	<bean id="answer2" class="domain.Answer">
 		<property name="text" value="Answer-2" />
-		<property name="username" value="user1" />
+		<property name="user" ref="user1" />
 	</bean>
 	
 	<bean id="answer3" class="domain.Answer">
 		<property name="text" value="Answer-3" />
-		<property name="username" value="user2" />
+		<property name="user" ref="user2" />
 	</bean>
 	
 	<bean id="answer4" class="domain.Answer">
 		<property name="text" value="Answer-4" />
-		<property name="username" value="user2" />
+		<property name="user" ref="user2" />
 	</bean>
 	
 	<!-- Rendezvous -->

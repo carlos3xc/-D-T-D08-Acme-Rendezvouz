@@ -26,7 +26,7 @@ public class Answer extends DomainEntity {
 	// Attributes -------------------------------------------------------------
 
 	private String	text;
-	private String	username;
+//	private String	username;
 
 
 	@NotBlank
@@ -37,7 +37,7 @@ public class Answer extends DomainEntity {
 	public void setText(final String text) {
 		this.text = text;
 	}
-
+/*
 	@NotBlank
 	public String getUsername() {
 		return this.username;
@@ -45,7 +45,7 @@ public class Answer extends DomainEntity {
 
 	public void setUsername(final String username) {
 		this.username = username;
-	}
+	}*/
 
 
 	//	Relationships

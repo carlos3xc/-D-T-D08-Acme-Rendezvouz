@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.RendezvousService;
 import controllers.AbstractController;
+import domain.Rendezvous;
 
 
 

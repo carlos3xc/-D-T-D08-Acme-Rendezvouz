@@ -39,7 +39,7 @@ public class RegisterController extends AbstractController{
 	// LISTING -----------------------------------------------------------------
 
 	@RequestMapping(value = "/listUsers", method = RequestMethod.GET)
-	public ModelAndView listExplorer(){
+	public ModelAndView listUser(){
 		ModelAndView result;
 		Collection<User> users;
 		String a = "USER";
@@ -57,7 +57,7 @@ public class RegisterController extends AbstractController{
 	// Create -----------------------------------------------------------------
 
 	@RequestMapping(value = "/createUser", method = RequestMethod.GET)
-	public ModelAndView createExplorer() {
+	public ModelAndView createUser() {
 		
 		ModelAndView result;
 		User user;
@@ -72,7 +72,7 @@ public class RegisterController extends AbstractController{
 	// Edit -----------------------------------------------------------------
 
 	@RequestMapping(value = "/editUser", method = RequestMethod.GET)
-	public ModelAndView editExplorer(@RequestParam final int userId) {
+	public ModelAndView editUser(@RequestParam final int userId) {
 		
 		ModelAndView result;
 		User user;
@@ -87,7 +87,7 @@ public class RegisterController extends AbstractController{
 	// Save -----------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveUser")
-	public ModelAndView saveExplorer(@Valid final User user, final BindingResult binding) {
+	public ModelAndView saveUser(@Valid final User user, final BindingResult binding) {
 		ModelAndView result;
 		
 		Md5PasswordEncoder encoder;
@@ -122,10 +122,8 @@ public class RegisterController extends AbstractController{
 	private ModelAndView createEditModelAndView(final User user, final String message) {
 		ModelAndView result = new ModelAndView();
 		
-			result = new ModelAndView("register/editUser");
+			result = new ModelAndView("register/edit");
 			result.addObject("user", user);
-
-		result.addObject("auth", "USER");
 		result.addObject("message", message);
 
 		return result;

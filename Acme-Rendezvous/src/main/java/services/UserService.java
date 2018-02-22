@@ -2,13 +2,16 @@ package services;
 
 
 import java.util.Collection;
+import java.util.LinkedList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import repositories.UserRepository;
+import security.Authority;
 import security.UserAccount;
+import security.UserAccountService;
 import domain.Actor;
 import domain.User;
 
@@ -24,7 +27,8 @@ public class UserService {
 	
 	// Supporting service --------------------------------------------------------------------------------------
 	
-	
+	@Autowired
+	private UserAccountService userAccountService;
 	
 	// Constructor ---------------------------------------------------------------------------------------------
 	
@@ -37,8 +41,14 @@ public class UserService {
 	public User create(){
 		
 		User result = new User();
-		result.setName("name"+result.getId());
-		result.setSurname("surname" + result.getId());
+	//	result.setName("name"+result.getId());
+	//	result.setSurname("surname" + result.getId());
+		
+		UserAccount ua = userAccountService.create();
+		Authority au = new Authority();
+		au.setAuthority("USER");
+		ua.getAuthorities().add(au);
+		result.setUserAccount(userAccountService.save(ua));
 		return result;
 	}
 	

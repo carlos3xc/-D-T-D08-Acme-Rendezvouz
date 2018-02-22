@@ -15,8 +15,10 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -71,7 +73,7 @@ public class Comment extends DomainEntity {
 	// Relationships ----------------------------------------------------------
 
 	private User				user;
-	private Collection<Comment>	remarkA;
+	private Collection<Comment>	replies;
 
 
 	@NotNull
@@ -87,13 +89,14 @@ public class Comment extends DomainEntity {
 
 	@NotNull
 	@Valid
-	@ManyToOne(optional = false)
-	public Collection<Comment> getRemarkA() {
-		return this.remarkA;
+	@ElementCollection
+	@OneToMany
+	public Collection<Comment> getReplies() {
+		return this.replies;
 	}
 
-	public void setRemarkA(final Collection<Comment> remarkA) {
-		this.remarkA = remarkA;
+	public void setReplies(final Collection<Comment> replies) {
+		this.replies = replies;
 	}
 
 }

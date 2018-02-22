@@ -40,7 +40,7 @@ public class CommentServiceTest extends AbstractTest {
 		Assert.isNull(comment.getPicture());
 		Assert.isNull(comment.getMoment());
 		Assert.isNull(comment.getUser());
-		Assert.notNull(comment.getRemarkA());
+		Assert.notNull(comment.getReplies());
 	}
 
 	@Test
@@ -48,15 +48,15 @@ public class CommentServiceTest extends AbstractTest {
 		Comment comment, result;
 		comment = this.commentService.create();
 		final User user = this.userService.findOne(15);
-		final Collection<Comment> remarkA = new ArrayList<Comment>();
-		remarkA.add(comment);
+		final Collection<Comment> replies = new ArrayList<Comment>();
+		replies.add(comment);
 		Date current;
 		current = new Date();
 		comment.setText("Example text");
 		comment.setPicture("http://www.examplepicture.com");
 		comment.setMoment(current);
 		comment.setUser(user);
-		comment.setRemarkA(remarkA);
+		comment.setReplies(replies);
 		result = this.commentService.save(comment);
 		Assert.isTrue(this.commentService.findAll().contains(result), "The comment must exist");
 	}
@@ -66,15 +66,15 @@ public class CommentServiceTest extends AbstractTest {
 		Comment comment, result;
 		comment = this.commentService.create();
 		final User user = this.userService.findOne(15);
-		final Collection<Comment> remarkA = new ArrayList<Comment>();
-		remarkA.add(comment);
+		final Collection<Comment> replies = new ArrayList<Comment>();
+		replies.add(comment);
 		Date current;
 		current = new Date();
 		comment.setText("Example text");
 		comment.setPicture("http://www.examplepicture.com");
 		comment.setMoment(current);
 		comment.setUser(user);
-		comment.setRemarkA(remarkA);
+		comment.setReplies(replies);
 		result = this.commentService.save(comment);
 		Assert.isTrue(this.commentService.findAll().contains(result), "The comment must exist");
 		this.commentService.delete(result);

@@ -30,7 +30,7 @@ public class CommentService {
 		Assert.isTrue(this.checkUser());
 		Comment result;
 		result = new Comment();
-		result.setRemarkA(new ArrayList<Comment>());
+		result.setReplies(new ArrayList<Comment>());
 		return result;
 	}
 

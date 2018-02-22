@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import domain.Actor;
 import domain.Administrator;
 import domain.User;
 
@@ -47,9 +48,9 @@ public class AdministratorService {
 		return result;
 	}
 	
-	public void save(Administrator result){
+	public Administrator save(Administrator admin){
 		
-		administratorRepository.save(result);
+		return administratorRepository.save(admin);
 	}
 	
 	public void delete(Administrator res){

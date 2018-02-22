@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import repositories.UserRepository;
 import security.UserAccount;
+import domain.Actor;
 import domain.User;
 
 
@@ -41,9 +42,9 @@ public class UserService {
 		return result;
 	}
 	
-	public void save(User result){
+	public User save(User result){
 
-		userRepository.save(result);
+		return userRepository.save(result);
 
 	}
 	

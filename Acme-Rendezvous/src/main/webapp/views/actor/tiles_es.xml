@@ -21,11 +21,6 @@
 		<put-attribute name="body" value="/views/actor/info.jsp" />
 	</definition>
 	
-	<definition name="profile/infoUser" extends="master.page">	
-		<put-attribute name="title" value="Perfil del actor" />
-		<put-attribute name="body" value="/views/actor/infoUser.jsp" />
-	</definition>
-	
 	<definition name="profile/edit" extends="master.page">	
 		<put-attribute name="title" value="Editar perfil" />
 		<put-attribute name="body" value="/views/actor/edit.jsp" />

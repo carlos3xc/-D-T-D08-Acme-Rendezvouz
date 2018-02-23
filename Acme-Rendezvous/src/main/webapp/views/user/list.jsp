@@ -27,7 +27,7 @@
 			
 			<spring:message code="user.profile" var="profileHeader"/>
 			<display:column title="${profileHeader}">
-				<a href="profile/infoUser.do?actorId=${row.id}"> ${profileHeader} </a>
+				<a href="profile/info.do?actorId=${row.id}"> ${profileHeader} </a>
 			</display:column>
 		
 		</display:table>	

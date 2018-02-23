@@ -55,14 +55,26 @@ public class ProfileController extends AbstractController {
 	// Info ---------------------------------------------------------------		
 
 	@RequestMapping("/info")
-	public ModelAndView info() {
+	public ModelAndView info(@RequestParam(required=false) final Integer actorId) {
 		ModelAndView result;
 		String auth = "";
+		String userOk = "";
+		Actor aux = null, a=null;
 		User user;
 		Administrator administrator;
 		result = new ModelAndView("profile/info");
+		
+		if(actorId != null)
+			 a = actorService.findOne(actorId);
+		else
+			 a = actorService.findByPrincipal();
 
-		Actor a = actorService.findByUserAccount(LoginService.getPrincipal());
+		if(LoginService.getPrincipal2() != null){
+			aux = actorService.findByUserAccount(LoginService.getPrincipal());
+			if(aux.equals(a)){
+			  userOk = "OK";
+			}
+		}		
 		
 		for(Authority at: a.getUserAccount().getAuthorities()){
 			auth = at.getAuthority();
@@ -79,6 +91,7 @@ public class ProfileController extends AbstractController {
 			result.addObject("rendezvouses",rendezvouses);
 			result.addObject("announcements",announs);
 			result.addObject("actor", user);
+			result.addObject("OK",userOk);
 		}else if(auth.equals("ADMIN")){
 			administrator = administratorService.findOne(a.getId());
 			result.addObject("actor",administrator);
@@ -87,7 +100,7 @@ public class ProfileController extends AbstractController {
 		result.addObject("requestURI", "profile/info.do");
 		return result;
 	}
-	
+/*	
 	@RequestMapping("/infoUser")
 	public ModelAndView infoUser(@RequestParam final int actorId) {
 		ModelAndView result;
@@ -120,7 +133,7 @@ public class ProfileController extends AbstractController {
 		
 		result.addObject("requestURI", "profile/infoUser.do");
 		return result;
-	}
+	}*/
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int actorId) {

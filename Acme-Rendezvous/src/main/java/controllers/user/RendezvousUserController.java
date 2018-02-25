@@ -33,12 +33,6 @@ public class RendezvousUserController extends AbstractController {
 	private RendezvousService rendezvousService;
 	
 	@Autowired
-	private UserService userService;
-	
-	@Autowired
-	private UserAccountService userAccountService;
-	
-	@Autowired
 	private ActorService actorService;
 
 	public RendezvousUserController() {
@@ -54,9 +48,9 @@ public class RendezvousUserController extends AbstractController {
 		Collection<Rendezvous> rendezvouses;
 		rendezvouses = rendezvousService.findAll();
 
-		result = new ModelAndView("user/list");
+		result = new ModelAndView("rendezvous/list");
 		result.addObject("rendezvouses", rendezvouses);
-		result.addObject("requestURI", "rendezvous/user/list.do");
+		result.addObject("requestURI", "rendezvous/list.do");
 		return result;
 	}
 	
@@ -94,7 +88,7 @@ public class RendezvousUserController extends AbstractController {
 		Rendezvous rendezvous = this.rendezvousService.findOne(rendezvousId);
 
 		Assert.notNull(rendezvous);
-		//TODO: Falta por comprobar que el usuario que esta editando los datos es el mismo que el que esta logueado.
+
 		Actor loggedActor = actorService.findByPrincipal();
 		User beingModified = rendezvousService.findOne(rendezvousId).getUser();
 		

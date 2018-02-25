@@ -19,7 +19,7 @@ import domain.Comment;
 import domain.User;
 
 @ContextConfiguration(locations = {
-	"classpath:spring/junit.xml"
+	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional

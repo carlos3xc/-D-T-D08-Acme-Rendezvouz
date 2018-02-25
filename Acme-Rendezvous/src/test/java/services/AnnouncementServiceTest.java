@@ -16,7 +16,7 @@ import utilities.AbstractTest;
 import domain.Announcement;
 
 @ContextConfiguration(locations = {
-	"classpath:spring/junit.xml"
+	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
@@ -32,11 +32,13 @@ public class AnnouncementServiceTest extends AbstractTest {
 
 	@Test
 	public void testCreate() {
+		this.authenticate("user2");
 		Announcement announcement;
 		announcement = this.announcementService.create();
 		Assert.isNull(announcement.getTitle());
 		Assert.isNull(announcement.getDescription());
 		Assert.isNull(announcement.getMoment());
+		this.unauthenticate();
 	}
 
 	@Test

@@ -35,6 +35,9 @@ public class RendezvousService {
 	@Autowired
 	private ActorService actorService;
 	
+	@Autowired
+	private UserService userService;
+	
 	// Constructor ---------------------------------------------------------------------------------------------
 	public RendezvousService() {
 		super();
@@ -89,34 +92,30 @@ public class RendezvousService {
 	}
 
 	// Other business methods ----------------------------------------------------------------------------------
-
-	// Aqui falta un metodo en userService que se hara con queries, aunque este metodo tmbn se podria hacer con una query en
-	// UserRepository
-	/*
-	 * public Collection<Rendezvous> getRendezvousOwnedBy(UserAccount userAccount){
-	 * Collection<Rendezvous> result = new ArrayList<Rendezvous>();
-	 * User user = userService.findByUserAccount(userAccount);
-	 * for(Rendezvous r:this.findAll()){
-	 * if(r.getUser().equals(user)){
-	 * result.add(r);
-	 * }
-	 * }
-	 * return result;
-	 * }
-	 */
+	
+	 public Collection<Rendezvous> getRendezvousOwnedBy(UserAccount userAccount){
+		 Collection<Rendezvous> result = new ArrayList<Rendezvous>();
+		 User user = userService.findByUserAccount(userAccount);
+		 for(Rendezvous r:this.findAll()){
+			 if(r.getUser().equals(user)){
+				 result.add(r);
+			 }
+		 }
+		 return result;
+	 	}
 
 	public Double getAverageRendezvousPerUser() {
-		return this.rendezvousRepository.getAverageRendezvousPerUser();
+		return (double) (this.findAll().size() / userService.findAll().size());
 	}
 /*
 	public Double getDeviatonRendezvousCreatedPerUser() {
 		return this.rendezvousRepository.getDeviatonRendezvousCreatedPerUser();
 	}
-
+*/
 	public Double getAverageRendezvousRSVdPerUser() {
-		return this.rendezvousRepository.getAverageRendezvousRSVdPerUser();
+		return (double) (rendezvousRepository.getRendezvousRSVd().size()/userService.findAll().size());
 	}
-
+/*
 	public Double getDeviatonRendezvousRSVdPerUser() {
 		return this.rendezvousRepository.getDeviatonRendezvousRSVdPerUser();
 	}

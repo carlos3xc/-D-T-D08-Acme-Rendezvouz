@@ -1,3 +1,4 @@
+
 package controllers;
 
 import java.util.Collection;
@@ -9,17 +10,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.AnnouncementService;
-import controllers.AbstractController;
 import domain.Announcement;
-
 
 @Controller
 @RequestMapping("/announcement")
 public class AnnouncementController extends AbstractController {
 
 	@Autowired
-	private AnnouncementService announcementService;
-	
+	private AnnouncementService	announcementService;
+
+
 	public AnnouncementController() {
 		super();
 	}
@@ -31,7 +31,7 @@ public class AnnouncementController extends AbstractController {
 		ModelAndView result;
 
 		Collection<Announcement> announcements;
-		announcements = announcementService.findAll();
+		announcements = this.announcementService.findAll();
 
 		result = new ModelAndView("announcement/list");
 		result.addObject("announcements", announcements);
@@ -39,6 +39,4 @@ public class AnnouncementController extends AbstractController {
 		return result;
 	}
 
-	
-	
 }

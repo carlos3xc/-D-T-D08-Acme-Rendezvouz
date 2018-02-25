@@ -13,7 +13,7 @@
 	<display:table name="rendezvouses" id="row" requestURI="rendezvous/list.do" pagesize="5">
 		<security:authorize access="hasRole('USER')">
 			<display:column >
-			<jstl:if test="${row.isFinal == false}">
+			<jstl:if test="${row.finalMode == false}">
 				<a href="rendezvous/user/edit.do?rendezvousId=${row.id}">
 					<spring:message	code="rendezvous.edit" />
 				</a><br/>

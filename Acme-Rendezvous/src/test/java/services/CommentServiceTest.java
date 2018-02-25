@@ -34,6 +34,7 @@ public class CommentServiceTest extends AbstractTest {
 
 	@Test
 	public void testCreate() {
+		this.authenticate("user2");
 		Comment comment;
 		comment = this.commentService.create();
 		Assert.isNull(comment.getText());
@@ -41,6 +42,7 @@ public class CommentServiceTest extends AbstractTest {
 		Assert.isNull(comment.getMoment());
 		Assert.isNull(comment.getUser());
 		Assert.notNull(comment.getReplies());
+		this.unauthenticate();
 	}
 
 	@Test
@@ -63,6 +65,7 @@ public class CommentServiceTest extends AbstractTest {
 
 	@Test
 	public void testDelete() {
+		this.authenticate("admin");
 		Comment comment, result;
 		comment = this.commentService.create();
 		final User user = this.userService.findOne(15);
@@ -79,5 +82,6 @@ public class CommentServiceTest extends AbstractTest {
 		Assert.isTrue(this.commentService.findAll().contains(result), "The comment must exist");
 		this.commentService.delete(result);
 		Assert.isTrue(!this.commentService.findAll().contains(result));
+		this.unauthenticate();
 	}
 }

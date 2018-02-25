@@ -56,6 +56,7 @@ public class AnnouncementServiceTest extends AbstractTest {
 
 	@Test
 	public void testDelete() {
+		this.authenticate("admin");
 		Announcement announcement, result;
 		announcement = this.announcementService.create();
 		Date current;
@@ -67,6 +68,7 @@ public class AnnouncementServiceTest extends AbstractTest {
 		Assert.isTrue(this.announcementService.findAll().contains(result), "The announcement must exist");
 		this.announcementService.delete(result);
 		Assert.isTrue(!this.announcementService.findAll().contains(result));
+		this.unauthenticate();
 	}
 
 }

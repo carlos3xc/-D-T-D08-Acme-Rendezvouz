@@ -35,19 +35,19 @@ public class RendezvousAdministratorController extends AbstractController {
 	}
 
 	// Listing ----------------------------------------------------------------
-
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
-		ModelAndView result;
-
-		Collection<Rendezvous> rendezvouses;
-		rendezvouses = this.rendezvousService.findAll();
-
-		result = new ModelAndView("rendezvous/list");
-		result.addObject("rendezvouses", rendezvouses);
-		result.addObject("requestURI", "rendezvouses/administrator/list.do");
-		return result;
-	}
+//
+//	@RequestMapping(value = "/list", method = RequestMethod.GET)
+//	public ModelAndView list() {
+//		ModelAndView result;
+//
+//		Collection<Rendezvous> rendezvouses;
+//		rendezvouses = this.rendezvousService.findAll();
+//
+//		result = new ModelAndView("rendezvous/list");
+//		result.addObject("rendezvouses", rendezvouses);
+//		result.addObject("requestURI", "rendezvouses/administrator/list.do");
+//		return result;
+//	}
 
 	// Edition ----------------------------------------------------------------
 

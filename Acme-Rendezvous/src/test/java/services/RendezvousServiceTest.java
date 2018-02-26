@@ -14,21 +14,27 @@ import javax.transaction.Transactional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
+import domain.Rendezvous;
 
 @ContextConfiguration(locations = {
-	"classpath:spring/junit.xml"
+	"classpath:spring/datasource.xml",
+	"classpath:spring/config/packages.xml"
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 public class RendezvousServiceTest extends AbstractTest {
 
 	// Support Services ---------------------------------------------------------------------------------------------------
-
+		
+	@Autowired
+		private RendezvousService rendezvousService;	
+	
 	// Tests ------------------------------------------------------------------
 
 	// The following are fictitious test cases that are intended to check that 
@@ -37,32 +43,40 @@ public class RendezvousServiceTest extends AbstractTest {
 
 	@Test
 	public void createTest() {
-		Assert.isTrue(true);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void sampleNegativeTest() {
-		Assert.isTrue(false);
+		
+		authenticate("user1");
+		
+		Rendezvous result = rendezvousService.create();
+		
+		Assert.isTrue(result.getAnnouncements().isEmpty());
+		Assert.isTrue(result.getComments().isEmpty());
+		Assert.isTrue(result.getLinkedRendezvous().isEmpty());
+		Assert.isTrue(result.getListAttendants().isEmpty());
+		Assert.isTrue(result.getQuestions().isEmpty());
+		
+		Assert.isNull(result.getDescription());
+		Assert.isTrue(result.getFinalMode().equals(false));
+		Assert.isNull(result.getFlag());
+		Assert.isNull(result.getGpsCoordinates());
+		Assert.isNull(result.getIsAdultContent());
+		Assert.isNull(result.getMoment());
+		Assert.isNull(result.getName());
+		Assert.isNull(result.getPicture());
+		Assert.isNull(result.getUser());
+		
+		unauthenticate();
 	}
 
 	@Test
-	public void sampleDriver() {
-		final Object testingData[][] = {
-			{
-				"userAccount1", 4, null
-			}, {
-				"userAccount2", 5, null
-			}, {
-				"userAccount3", 6, null
-			}, {
-				"non-existent", 0, AssertionError.class
-			}
-		};
-
-		for (int i = 0; i < testingData.length; i++)
-			this.sampleTemplate((String) testingData[i][0], (int) testingData[i][1], (Class<?>) testingData[i][2]);
+	public void save() {
+		
+		 Rendezvous result = rendezvousService.create();
+		 
+		 result.setDescription("Gonzalo");
+		 
+		 
 	}
-
+/*
 	// Ancillary methods ------------------------------------------------------
 
 	protected void sampleTemplate(final String beanName, final int id, final Class<?> expected) {
@@ -79,5 +93,5 @@ public class RendezvousServiceTest extends AbstractTest {
 
 		this.checkExceptions(expected, caught);
 	}
-
+*/
 }

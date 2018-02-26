@@ -12,9 +12,9 @@ import domain.User;
 @Repository
 public interface RendezvousRepository extends JpaRepository<Rendezvous, Integer> {
 	
-	@Query("select avg(r.user) from Rendezvous r")
+	@Query("select (count(r)/(select count(u) from User u)) from Rendezvous r")
 	Double getAverageRendezvousPerUser();
-	
+		
 //	@Query("select sqrt(sum(u.rendezvouses.size * u.rendezvouses.size) / count(u.rendezvouses.size) - (avg(u.rendezvouses.size) * avg(u.rendezvouses.size))) from User u;")
 //	Double getDeviatonRendezvousCreatedPerUser();
 	

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.RendezvousRepository;
 import security.Authority;
@@ -19,6 +21,7 @@ import domain.Comment;
 import domain.Question;
 import domain.Rendezvous;
 import domain.User;
+import forms.RendezvousForm;
 
 @Service
 @Transactional
@@ -37,6 +40,9 @@ public class RendezvousService {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private Validator validator;
 	
 	// Constructor ---------------------------------------------------------------------------------------------
 	public RendezvousService() {
@@ -92,6 +98,37 @@ public class RendezvousService {
 	}
 
 	// Other business methods ----------------------------------------------------------------------------------
+	
+	public Rendezvous reconstruct(RendezvousForm rendezvous, BindingResult binding){
+		Rendezvous result;
+		
+		if(rendezvous.getId()==0){
+			result = this.create();
+			
+			result.setDescription(rendezvous.getDescription());
+			result.setFinalMode(rendezvous.getFinalMode());
+			result.setFlag(rendezvous.getFlag());
+			result.setGpsCoordinates(rendezvous.getGpsCoordinates());
+			result.setIsAdultContent(rendezvous.getIsAdultContent());
+			result.setMoment(rendezvous.getMoment());
+			result.setName(rendezvous.getName());
+			result.setPicture(rendezvous.getPicture());
+		}else{
+			result = rendezvousRepository.findOne(rendezvous.getId());
+			
+			result.setDescription(rendezvous.getDescription());
+			result.setFinalMode(rendezvous.getFinalMode());
+			result.setFlag(rendezvous.getFlag());
+			result.setGpsCoordinates(rendezvous.getGpsCoordinates());
+			result.setIsAdultContent(rendezvous.getIsAdultContent());
+			result.setMoment(rendezvous.getMoment());
+			result.setName(rendezvous.getName());
+			result.setPicture(rendezvous.getPicture());
+			
+			validator.validate(result, binding);
+		}
+		return result;
+	}
 	
 	 public Collection<Rendezvous> getRendezvousOwnedBy(UserAccount userAccount){
 		 Collection<Rendezvous> result = new ArrayList<Rendezvous>();

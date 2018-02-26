@@ -29,6 +29,8 @@ import domain.User;
 @Service
 @Transactional
 public class ActorService {
+	
+	//Migue estuvo aqui
 
 	// Managed repository -----------------------------------------------------
 

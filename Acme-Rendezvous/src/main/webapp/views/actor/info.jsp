@@ -15,12 +15,12 @@
 	<b><spring:message code="actor.phone" /></b>: <jstl:out value="${actor.phoneNumber}"></jstl:out><br/>
 	<b><spring:message code="actor.address" /></b>: <jstl:out value="${actor.postalAddress}"></jstl:out><br/>	
 	
+	<jstl:if test="${OK == 'OK' }">
 	<spring:url var="url" value="profile/edit.do">
 		<spring:param name="actorId" value="${actor.id}"/>
 	</spring:url>
 	<button type="button" onclick="javascript: window.location.replace('${url}')"><spring:message code="actor.edit"/></button>
-
-	<security:authorize access="hasRole('USER')">
+	</jstl:if>
 	<h3>	<spring:message code="actor.rendezvouses" /></h3><br/>	
 	
 	<!--  Lista de citas que ha atendido o va a atender el actor -->	
@@ -37,13 +37,13 @@
 
 			<spring:message code="rendezvous.gpsCoordinates" var="gpsCoordinateHeader"/>
 			<display:column title="${gpsCoordinateHeader}" >
-				${row.location.latitude} ${row.location.longitude}
+				${row.gpsCoordinates.latitude} ${row.gpsCoordinates.longitude}
 			</display:column>
 		
 			<spring:message code="rendezvous.listAttendants" var="attendantsHeader"/>
 			<display:column title="${attendantsHeader}">
 			<jstl:forEach var="x" items="${row.listAttendants}">
-					<a href="profile/info.do?actorId=${x.key }">${x.value}</a>
+					<a href="profile/info.do?actorId=${x.id}">${x.userAccount.username}</a>
 			</jstl:forEach>
 			</display:column>
 		</display:table>	
@@ -64,5 +64,4 @@
 
 	</display:table>
 		
-	</security:authorize>
 	

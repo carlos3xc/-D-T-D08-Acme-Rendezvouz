@@ -34,14 +34,14 @@
 			<li><a class="fNiv"><spring:message code="master.page.rendezvous" /></a>	
 			<ul>
 					<li class="arrow"></li>
-					<li><a href="rendezvous/user/list.do"><spring:message code="master.page.user.list.rendezvous" /></a></li>
+					<li><a href="rendezvous/list.do"><spring:message code="master.page.user.list.rendezvous" /></a></li>
 					<li><a href="rendezvous/user/create.do"><spring:message code="master.page.user.create.rendezvous" /></a></li>					
 			</ul>
 			<li><a class="fNiv"><spring:message code="master.page.list.announcement" /></a>	
 				<ul>
 					<li class="arrow"></li>
-					<li><a class="fNiv" href="announcement/user/list.do"><spring:message code="master.page.user.list.announcement" /></a>
-					<li><a class="fNiv" href="announcement/user/create.do"><spring:message code="master.page.user.create.announcement" /></a>
+					<li><a href="announcement/list.do"><spring:message code="master.page.user.list.announcement" /></a>
+					<li><a href="announcement/user/create.do"><spring:message code="master.page.user.create.announcement" /></a>
 						
 				</ul>
 			</li>
@@ -50,10 +50,15 @@
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 			<li><a class="fNiv" href="register/createUser.do"><spring:message code="master.page.register" /></a>
-			<li><a class="fNiv" href="user/list.do"><spring:message code="master.page.list.user" /></a>
 			<li><a class="fNiv" href="rendezvous/list.do"><spring:message code="master.page.list.rendezvous" /></a>
 			<li><a class="fNiv" href="announcement/list.do"><spring:message code="master.page.list.announcement" /></a>
 		</security:authorize>
+		
+		<security:authorize access="permitAll">
+						<li><a class="fNiv" href="user/list.do"><spring:message code="master.page.list.user" /></a>
+			
+		</security:authorize>
+		
 		
 		<security:authorize access="isAuthenticated()">
 			<li>
@@ -63,7 +68,7 @@
 				</a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="actor/info.do"><spring:message code="master.page.profile" /></a></li>				
+					<li><a href="profile/info.do"><spring:message code="master.page.profile" /></a></li>				
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>
 			</li>

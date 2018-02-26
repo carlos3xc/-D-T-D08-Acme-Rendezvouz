@@ -10,10 +10,10 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-	<display:table name="rendezvouses" id="row" requestURI="rendezvous/user/list.do" pagesize="5">
+	<display:table name="rendezvouses" id="row" requestURI="rendezvous/list.do" pagesize="5">
 		<security:authorize access="hasRole('USER')">
 			<display:column >
-			<jstl:if test="${row.isFinal == false}">
+			<jstl:if test="${row.finalMode == false}">
 				<a href="rendezvous/user/edit.do?rendezvousId=${row.id}">
 					<spring:message	code="rendezvous.edit" />
 				</a><br/>
@@ -37,15 +37,27 @@
 
 		<spring:message code="rendezvous.gpsCoordinates" var="gpsCoordinateHeader"/>
 		<display:column title="${gpsCoordinateHeader}" >
-			${row.location.latitude} ${row.location.longitude}
+			${row.gpsCoordinates.latitude} ${row.gpsCoordinates.longitude}
 		</display:column>
+		
+		<spring:message code="rendezvous.announcements" var="announcementsHeader"/>
+		<display:column title="${announcementsHeader}" >
+			<a href="announcement/list.do?rendezvousId=${row.id }"><spring:message code="rendezvous.announcement.more"/></a>
+		</display:column>
+		
 		
 		<spring:message code="rendezvous.listAttendants" var="attendantsHeader"/>
 		<display:column title="${attendantsHeader}">
 			<jstl:forEach var="x" items="${row.listAttendants}">
-					<a href="profile/info.do?actorId=${x.key }">${x.value}</a>
+					<a href="profile/info.do?actorId=${x.id }">${x.userAccount.username}</a>
 			</jstl:forEach>
 		</display:column>
+		
+		<spring:message code="rendezvous.creator" var="userHeader"/>
+		<display:column title="${userHeader}">
+			<a href="profile/info.do?actorId=${row.user.id }">${row.user.userAccount.username}</a>
+		</display:column>
+		
 
 	</display:table>
 		

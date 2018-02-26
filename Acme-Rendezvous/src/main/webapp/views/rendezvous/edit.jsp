@@ -18,6 +18,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 	
 	<security:authorize access="hasRole('USER')">
 	<form:form action="rendezvous/user/edit.do" modelAttribute="rendezvous">
@@ -31,66 +32,30 @@
 	<form:hidden path="flag"/>
 	<form:hidden path="questions"/>
 	<form:hidden path="announcements"/>
-
-	<form:label path="name">
-		<spring:message code="rendezvous.name"/>:
-	</form:label>
-	<form:input path="name"/>
-	<form:errors cssClass="error" path="rendezvous.name" />
-	<br/>
 	
-	<form:label path="description">
-		<spring:message code="rendezvous.description"/>:
-	</form:label>
-	<form:textarea path="description"/>
-	<form:errors cssClass="error" path="rendezvous.description" />
-	<br/>
-	
+	<acme:textbox code="rendezvous.name" path="name"/>
+	<acme:textbox code="rendezvous.description" path="description"/>
+	<acme:textbox code="rendezvous.moment" path="moment"/>
+	<!--  
 	<spring:message code="rendezvous.moment.format" var="momentFormat"/>
 	<form:label path="moment">
 		<spring:message code="rendezvous.moment" />:
 	</form:label>
 	<form:input path="moment" placeholder="${momentFormat}"/>
 	<form:errors cssClass="error" path="moment" />
-	<br />
+	<br /> -->
 	
-	<form:label path="picture">
-	<spring:message code="rendezvous.picture"/>:
-	</form:label>
-	<form:textarea path="picture"/>
-	<form:errors cssClass="error" path="rendezvous.picture" />
-	<br/>
+	<acme:textbox code="rendezvous.picture" path="picture"/>
 	
 	<form:label path="gpsCoordinates">
 	<spring:message code="rendezvous.gpsCoordinates"/>:
 	</form:label> <br/>
 	
-	<form:label path="gpsCoordinates.latitude">
-	<spring:message code="rendezvous.gpsCoordinates.latitude"/>:
-	</form:label>	
-	<form:input path="gpsCoordinates.latitude"/>
-	<form:errors cssClass="error" path="rendezvous.gpsCoordinates.latitude" />
-	<br/>
-	<form:label path="gpsCoordinates.longitude">
-	<spring:message code="rendezvous.gpsCoordinates.longitude"/>:
-	</form:label>	
-	<form:input path="gpsCoordinates.longitude"/>
-	<form:errors cssClass="error" path="rendezvous.gpsCoordinates.longitude" />
-	<br/>
+	<acme:textbox code="rendezvous.gpsCoordinates.latitude" path="gpsCoordinates.latitude"/>
+	<acme:textbox code="rendezvous.gpsCoordinates.longitude" path="gpsCoordinates.longitude"/>
 	
-	<form:label path="finalMode">
-	<spring:message code="rendezvous.finalMode"/>:
-	</form:label>	
-	<form:checkbox path="finalMode" />
-	<form:errors cssClass="error" path="rendezvous.finalMode" />
-	<br/>
-	
-	<form:label path="isAdultContent">
-	<spring:message code="rendezvous.isAdultContent"/>:
-	</form:label>	
-	<form:checkbox path="isAdultContent" />
-	<form:errors cssClass="error" path="rendezvous.isAdultContent" />
-	<br/>
+	<acme:checkbox code="rendezvous.finalMode" path="finalMode"/>
+	<acme:checkbox code="rendezvous.isAdultContent" path="isAdultContent"/>
 	
 	<input type="submit" name="save"
 		value="<spring:message code="rendezvous.save" />" />&nbsp; 

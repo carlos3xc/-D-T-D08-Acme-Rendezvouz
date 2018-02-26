@@ -1,3 +1,4 @@
+
 package controllers.user;
 
 import java.util.Collection;
@@ -13,33 +14,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.LoginService;
-import security.UserAccount;
-import security.UserAccountService;
 import services.ActorService;
 import services.RendezvousService;
-import services.UserService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Rendezvous;
 import domain.User;
-
 
 @Controller
 @RequestMapping("/rendezvous/user")
 public class RendezvousUserController extends AbstractController {
 
 	@Autowired
-	private RendezvousService rendezvousService;
-	
+	private RendezvousService	rendezvousService;
+
 	@Autowired
-	private UserService userService;
-	
-	@Autowired
-	private UserAccountService userAccountService;
-	
-	@Autowired
-	private ActorService actorService;
+	private ActorService		actorService;
+
 
 	public RendezvousUserController() {
 		super();
@@ -52,34 +43,34 @@ public class RendezvousUserController extends AbstractController {
 		ModelAndView result;
 
 		Collection<Rendezvous> rendezvouses;
-		rendezvouses = rendezvousService.findAll();
+		rendezvouses = this.rendezvousService.findAll();
 
-		result = new ModelAndView("user/list");
+		result = new ModelAndView("rendezvous/list");
 		result.addObject("rendezvouses", rendezvouses);
-		result.addObject("requestURI", "rendezvous/user/list.do");
+		result.addObject("requestURI", "rendezvous/list.do");
 		return result;
 	}
-	
-//	// Profile ---------------------------------------------------------------
-//	@RequestMapping(value = "/profile", method = RequestMethod.GET)
-//	public ModelAndView list(@RequestParam final int userId) {
-//		ModelAndView result;
-//
-//		User user;
-//		user = userService.findOne(userId);
-//
-//		result = new ModelAndView("user/profile");
-//		result.addObject("user", user);
-//		result.addObject("requestURI", "user/profile.do");
-//		return result;
-//	}
+
+	//	// Profile ---------------------------------------------------------------
+	//	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+	//	public ModelAndView list(@RequestParam final int userId) {
+	//		ModelAndView result;
+	//
+	//		User user;
+	//		user = userService.findOne(userId);
+	//
+	//		result = new ModelAndView("user/profile");
+	//		result.addObject("user", user);
+	//		result.addObject("requestURI", "user/profile.do");
+	//		return result;
+	//	}
 
 	// Creation ---------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
-		Rendezvous rendezvous = this.rendezvousService.create();
+		final Rendezvous rendezvous = this.rendezvousService.create();
 		//Se asume que el actor va a atender a su propio rendezvous asi que se le añade a la lista de atendidos (implementado en servicio)
 
 		result = this.createEditModelAndView(rendezvous);
@@ -91,15 +82,15 @@ public class RendezvousUserController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int rendezvousId) {
 		ModelAndView result;
-		Rendezvous rendezvous = this.rendezvousService.findOne(rendezvousId);
+		final Rendezvous rendezvous = this.rendezvousService.findOne(rendezvousId);
 
 		Assert.notNull(rendezvous);
-		//TODO: Falta por comprobar que el usuario que esta editando los datos es el mismo que el que esta logueado.
-		Actor loggedActor = actorService.findByPrincipal();
-		User beingModified = rendezvousService.findOne(rendezvousId).getUser();
-		
+
+		final Actor loggedActor = this.actorService.findByPrincipal();
+		final User beingModified = this.rendezvousService.findOne(rendezvousId).getUser();
+
 		Assert.isTrue(loggedActor.equals(beingModified));
-		
+
 		result = this.createEditModelAndView(rendezvous);
 		return result;
 	}
@@ -120,18 +111,18 @@ public class RendezvousUserController extends AbstractController {
 		return result;
 	}
 
-//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-//	public ModelAndView delete(final User user, final BindingResult binding) {
-//		ModelAndView result;
-//
-//		try {
-//			this.userService.delete(rendezvous);
-//			result = new ModelAndView("redirect:list.do");
-//		} catch (final Throwable oops) {
-//			result = this.createEditModelAndView(rendezvous, "user.commit.error");
-//		}
-//		return result;
-//	}
+	//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	//	public ModelAndView delete(final User user, final BindingResult binding) {
+	//		ModelAndView result;
+	//
+	//		try {
+	//			this.userService.delete(rendezvous);
+	//			result = new ModelAndView("redirect:list.do");
+	//		} catch (final Throwable oops) {
+	//			result = this.createEditModelAndView(rendezvous, "user.commit.error");
+	//		}
+	//		return result;
+	//	}
 
 	//Extra methods
 	@RequestMapping(value = "/list", method = RequestMethod.POST, params = "reserve")
@@ -139,9 +130,9 @@ public class RendezvousUserController extends AbstractController {
 	public ModelAndView reserve(@Valid final Rendezvous rendezvous, final BindingResult binding) {
 		ModelAndView result;
 
-		rendezvous.getListAttendants().add((User)actorService.findByPrincipal());
+		rendezvous.getListAttendants().add((User) this.actorService.findByPrincipal());
 		//TODO: mirar esto por si hay que hacer un set de la lista de atendidos.
-		
+
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(rendezvous);
 		else
@@ -153,8 +144,7 @@ public class RendezvousUserController extends AbstractController {
 			}
 		return result;
 	}
-	
-	
+
 	// Ancillary methods ------------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final Rendezvous rendezvous) {
@@ -164,8 +154,7 @@ public class RendezvousUserController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Rendezvous rendezvous,
-			final String message) {
+	protected ModelAndView createEditModelAndView(final Rendezvous rendezvous, final String message) {
 		ModelAndView result;
 		result = new ModelAndView("rendezvous/edit");
 		result.addObject("rendezvous", rendezvous);

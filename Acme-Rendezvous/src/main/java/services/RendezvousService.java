@@ -124,6 +124,9 @@ public class RendezvousService {
 		return this.rendezvousRepository.getAverageRendezvousPerAnnouncement();
 	}*/
 
+	public Collection<Rendezvous> getRendezvousUser(User user){
+		return rendezvousRepository.getRendezvousUser(user);
+	}
 	private Boolean checkUser() {
 		Boolean result = false;
 		final UserAccount ua = LoginService.getPrincipal();

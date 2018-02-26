@@ -190,22 +190,38 @@
 
 	<bean id="question1" class="domain.Question">
 		<property name="text" value="Text-1" />
-		<property name="answer" ref="answer1" />
+		<property name="answers" >
+			<list>
+				<ref bean="answer1" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="question2" class="domain.Question">
 		<property name="text" value="Text-2" />
-		<property name="answer" ref="answer2" />
+		<property name="answers" >
+			<list>
+				<ref bean="answer2" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="question3" class="domain.Question">
 		<property name="text" value="Text-3" />
-		<property name="answer" ref="answer3" />
+		<property name="answers" >
+			<list>
+				<ref bean="answer3" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="question4" class="domain.Question">
 		<property name="text" value="Text-4" />
-		<property name="answer" ref="answer4" />
+		<property name="answers" >
+			<list>
+				<ref bean="answer4" />
+			</list>
+		</property>
 	</bean>
 	
 	

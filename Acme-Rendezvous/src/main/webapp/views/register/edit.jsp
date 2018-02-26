@@ -18,6 +18,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <form:form action="register/edit.do" modelAttribute="user">
 
@@ -26,63 +27,14 @@
 	
 	<form:hidden path="userAccount"/>
 	
-	
-	<form:label path="name">
-		<spring:message code="register.name" />:
-	</form:label>
-	
-	<form:input path="name" />
-	<form:errors cssClass="error" path="name" />
-	<br />
-	
-	<form:label path="surname">
-		<spring:message code="register.surname" />:
-	</form:label>
-	
-	<form:input path="surname" />
-	<form:errors cssClass="error" path="surname" />
-	<br />
-	
-	<form:label path="email">
-		<spring:message code="register.email" />:
-	</form:label>
-	
-	<form:input path="email" />
-	<form:errors cssClass="error" path="email" />
-	<br />
-	
-	<form:label path="phoneNumber">
-		<spring:message code="register.phone" />:
-	</form:label>
-	
-	<form:input path="phoneNumber" />
-	<form:errors cssClass="error" path="phoneNumber" />
-	<br />
-	
-	<form:label path="postalAddress">
-		<spring:message code="register.address" />:
-	</form:label>
-	
-	<form:input path="postalAddress" />
-	<form:errors cssClass="error" path="postalAddress" />
-	<br />
-	
-	<form:label path="userAccount.username">
-		<spring:message code="register.username" />:
-	</form:label>
-	
-	<form:input path="userAccount.username" />
-	<form:errors cssClass="error" path="userAccount.username" />
-	<br />
-	
-	<form:label path="userAccount.password">
-		<spring:message code="register.password" />:
-	</form:label>
-	
-	<form:password path="userAccount.password" />	
-	<form:errors cssClass="error" path="userAccount.password" />
-	<br />
-	
+	<acme:textbox code="register.name" path="name"/>
+	<acme:textbox code="register.surname" path="surname"/>
+	<acme:textbox code="register.email" path="email"/>
+	<acme:textbox code="register.phone" path="phoneNumber"/>
+	<acme:textbox code="register.address" path="postalAddress"/>
+	<acme:textbox code="register.username" path="userAccount.username"/>
+	<acme:textbox code="register.password" path="userAccount.password"/>
+
 	<input type="submit" name="saveUser" value="<spring:message code="register.save" />"/>
 		
 	<input type="button" name="cancel"

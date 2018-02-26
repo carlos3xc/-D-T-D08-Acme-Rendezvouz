@@ -10,6 +10,8 @@
 
 package domain;
 
+import java.util.Collection;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
@@ -41,17 +43,17 @@ public class Question extends DomainEntity {
 
 	// Relationships ----------------------------------------------------------
 
-	private Answer	answer;
+	private Collection<Answer>	answers;
 
 
 	@NotNull
 	@Valid
 	@OneToOne(optional = true, cascade = CascadeType.ALL)
-	public Answer getAnswer() {
-		return this.answer;
+	public Collection<Answer> getAnswers() {
+		return this.answers;
 	}
 
-	public void setAnswer(final Answer answer) {
-		this.answer = answer;
+	public void setAnswers(final Collection<Answer> answers) {
+		this.answers = answers;
 	}
 }

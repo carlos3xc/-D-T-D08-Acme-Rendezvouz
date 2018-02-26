@@ -111,10 +111,10 @@ public class RendezvousService {
 	public Double getDeviatonRendezvousCreatedPerUser() {
 		return this.rendezvousRepository.getDeviatonRendezvousCreatedPerUser();
 	}
-*/
+
 	public Double getAverageRendezvousRSVdPerUser() {
 		return (double) (rendezvousRepository.getRendezvousRSVd().size()/userService.findAll().size());
-	}
+	}*/
 /*
 	public Double getDeviatonRendezvousRSVdPerUser() {
 		return this.rendezvousRepository.getDeviatonRendezvousRSVdPerUser();

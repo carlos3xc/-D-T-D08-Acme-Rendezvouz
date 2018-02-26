@@ -128,6 +128,9 @@ public class RendezvousService {
 	public Collection<Rendezvous> getRendezvousUser(User user){
 		return rendezvousRepository.getRendezvousUser(user);
 	}
+	public Rendezvous getRendezvousById(int rendezvousId){
+		return rendezvousRepository.getRendezvousById(rendezvousId);
+	}
 	private Boolean checkUser() {
 		Boolean result = false;
 		final UserAccount ua = LoginService.getPrincipal();

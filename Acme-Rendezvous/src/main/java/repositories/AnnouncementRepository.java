@@ -20,4 +20,6 @@ public interface AnnouncementRepository extends JpaRepository<Announcement, Inte
 
 	@Query("select a from Announcement a order by  a.moment desc")
 	Collection<Announcement> findAllByOrderDescending();
+	
+	
 }

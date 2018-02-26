@@ -50,6 +50,7 @@ public class RendezvousController extends AbstractController {
 		result.addObject("requestURI", "rendezvous/list.do");
 		return result;
 	}
+	
 
 	
 	

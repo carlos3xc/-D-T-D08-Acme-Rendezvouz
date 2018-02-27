@@ -16,9 +16,7 @@ import repositories.CommentRepository;
 import security.Authority;
 import security.LoginService;
 import domain.Comment;
-import domain.Rendezvous;
 import forms.CommentForm;
-import forms.RendezvousForm;
 
 @Service
 @Transactional

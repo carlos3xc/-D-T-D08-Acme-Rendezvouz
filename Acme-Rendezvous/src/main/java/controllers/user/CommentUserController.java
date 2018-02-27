@@ -130,8 +130,11 @@ public class CommentUserController extends AbstractController {
 
 		ModelAndView result;
 		result = new ModelAndView("comment/edit");
+		System.out.println("bueno buenoooo");
 		Rendezvous r = rendezvousService.getRendezvousByComment(comment);
+		System.out.println("pero no me grites");
 		result.addObject("rendezvous",r);
+		System.out.println("joder chocho");
 		result.addObject("comment", comment);
 		result.addObject("message", message);
 		return result;

@@ -23,25 +23,20 @@
 	
 <security:authorize access="hasRole('USER')">
 
-	<form:form action="announcement/user/edit.do" modelAttribute="announcement">
+	<form:form action="question/user/edit.do" modelAttribute="question">
 	
 		<form:hidden path="id" />
-		<form:hidden path="version" />	
-		<form:hidden path="moment" />
+		<form:hidden path="version" />
+		<form:hidden path="answers"/>
 		
-		<acme:textbox code="announcement.title" path="title" />
-		<acme:textarea code="announcement.description" path="description" />
-		<acme:select code="announcement.rendezvous" path="rendezvouses" items="${rendezvouses}" itemLabel="name" id="rendezvouses" />
+		
+		<acme:textbox code="question.text" path="text" />
 
-		<acme:submit code="announcement.save" name="save" />
-		<acme:cancel code="announcement.cancel" url="announcement/user/list.do" />
+		<acme:submit code="question.save" name="save" />
+		<acme:cancel code="question.cancel" url="question/user/list.do" />
 		
-		<jstl:if test="${announcement.id != 0}">
-			<input type="submit" name="delete"
-				value="<spring:message code="announcement.delete" />"
-				onclick="return confirm('<spring:message code="anouncement.delete.confirm" />')" />&nbsp;
-		</jstl:if>
-		<br />
+		<input type="submit" name="delete"/>
+		
 	
 	</form:form>
 	

@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.QuestionService;
+import services.RendezvousService;
 import controllers.AbstractController;
 import domain.Question;
+import domain.Rendezvous;
 import forms.QuestionForm;
 
 @Controller
@@ -22,6 +24,9 @@ public class QuestionUserController extends AbstractController {
 
 	@Autowired
 	private QuestionService	questionService;
+	
+	@Autowired
+	private RendezvousService rendezvousService;
 
 
 	public QuestionUserController() {
@@ -46,14 +51,23 @@ public class QuestionUserController extends AbstractController {
 	// Creation -----------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
-
+	public ModelAndView create(Integer RendezvousId) {
+		
 		ModelAndView result;
 		Question question;
 
 		question = this.questionService.create();
+		
+		Rendezvous rend = rendezvousService.findOne(RendezvousId);
+		
+		rend.getQuestions().add(question);
 
-		result = this.createEditModelAndView(question);
+		
+		result = new ModelAndView("question/edit");
+		result.addObject("question", question);
+		result.addObject("rendezvous", rend);
+		result.addObject("message", null);
+		
 
 		return result;
 	}

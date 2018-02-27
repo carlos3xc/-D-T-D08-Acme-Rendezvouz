@@ -1,8 +1,6 @@
 
 package controllers.user;
 
-import java.util.Collection;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.QuestionService;
 import controllers.AbstractController;
 import domain.Question;
+import forms.QuestionForm;
 
 @Controller
 @RequestMapping("/question/user")
@@ -76,9 +75,11 @@ public class QuestionUserController extends AbstractController {
 	// Save -----------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Question question, final BindingResult binding) {
+	public ModelAndView save(@Valid final QuestionForm questionForm, final BindingResult binding) {
 		ModelAndView result;
-
+		Question question;
+		
+		question = questionService.reconstruct(questionForm, binding);
 		if (binding.hasErrors()){
 			System.out.println(binding.getFieldErrors());
 			result = this.createEditModelAndView(question);

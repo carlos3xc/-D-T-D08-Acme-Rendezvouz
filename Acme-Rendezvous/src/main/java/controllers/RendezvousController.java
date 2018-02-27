@@ -61,8 +61,8 @@ public class RendezvousController extends AbstractController {
 			String comment= null;
 			Actor aux = null;
 			
-			if(LoginService.getPrincipal2() != null){
-				aux = actorService.findByUserAccount(LoginService.getPrincipal());
+			if(actorService.findByPrincipal() != null){
+				aux = actorService.findByPrincipal();
 				for(Actor a: rendezvous.getListAttendants()){
 					if(a.getId() == aux.getId()){
 						comment = "OK";
@@ -71,13 +71,14 @@ public class RendezvousController extends AbstractController {
 				}
 			}		
 			
-			Actor logged = (User)actorService.findByPrincipal();
-			
+
+			Integer loggedUserId = actorService.findByPrincipal().getId();
+			System.out.println(loggedUserId);
 
 			result = new ModelAndView("rendezvous/display");
 			result.addObject("rendezvous", rendezvous);
 			result.addObject("comment", comment);
-			result.addObject("logged", logged);
+			result.addObject("logged", loggedUserId);
 			result.addObject("requestURI", "rendezvous/display.do");
 			return result;
 		}

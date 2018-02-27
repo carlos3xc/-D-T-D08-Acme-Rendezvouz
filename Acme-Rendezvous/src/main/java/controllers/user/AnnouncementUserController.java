@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.AnnouncementService;
+import services.RendezvousService;
 import controllers.AbstractController;
 import domain.Announcement;
+import domain.Rendezvous;
 
 @Controller
 @RequestMapping("/announcement/user")
@@ -23,6 +25,9 @@ public class AnnouncementUserController extends AbstractController {
 
 	@Autowired
 	private AnnouncementService	announcementService;
+
+	@Autowired
+	private RendezvousService	rendezvousService;
 
 
 	public AnnouncementUserController() {
@@ -103,7 +108,9 @@ public class AnnouncementUserController extends AbstractController {
 
 		ModelAndView result;
 		result = new ModelAndView("announcement/edit");
+		final Collection<Rendezvous> rendezvouses = this.rendezvousService.findAll();
 		result.addObject("announcement", announcement);
+		result.addObject("rendezvouses", rendezvouses);
 		result.addObject("message", message);
 		return result;
 	}

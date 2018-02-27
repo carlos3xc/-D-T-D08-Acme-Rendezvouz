@@ -32,6 +32,7 @@ public class Announcement extends DomainEntity {
 	private String	title;
 	private String	description;
 
+
 	@Past
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
@@ -52,6 +53,7 @@ public class Announcement extends DomainEntity {
 		this.title = title;
 	}
 
+	@NotBlank
 	public String getDescription() {
 		return this.description;
 	}

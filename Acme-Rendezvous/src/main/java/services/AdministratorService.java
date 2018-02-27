@@ -6,14 +6,14 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-
-import domain.Actor;
-import domain.Administrator;
-import domain.User;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.AdministratorRepository;
 import security.UserAccount;
+import domain.Actor;
+import domain.Administrator;
+import forms.ActorForm;
 
 
 @Service
@@ -27,8 +27,8 @@ public class AdministratorService {
 	
 	// Supporting service --------------------------------------------------------------------------------------
 	
-	//@Autowired
-	//	private UserService userService;
+	@Autowired
+	private Validator validator;
 	
 	// Constructor ---------------------------------------------------------------------------------------------
 	
@@ -68,6 +68,22 @@ public class AdministratorService {
 	
 	
 //Extra methods
+	
+	public Actor reconstruct(ActorForm actor, BindingResult binding){
+		Administrator result;
+		
+		result = administratorRepository.findOne(actor.getId());
+		
+		result.setName(actor.getName());
+		result.setSurname(actor.getSurname());
+		result.setEmail(actor.getEmail());
+		result.setPhoneNumber(actor.getPhoneNumber());
+		result.setPostalAddress(actor.getPostalAddress());
+		
+		validator.validate(result,binding);
+		
+		return result;
+	}
 	
 	public Administrator findByUserAccount(UserAccount u){
 		Administrator res = administratorRepository.FindByUserAccount(u);

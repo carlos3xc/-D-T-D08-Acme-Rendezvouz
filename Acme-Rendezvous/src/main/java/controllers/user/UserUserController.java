@@ -96,7 +96,7 @@ public class UserUserController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final User user, final BindingResult binding) {
 		ModelAndView result;
-
+		
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(user);
 		else

@@ -1,6 +1,7 @@
 
 package controllers.user;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -99,8 +100,11 @@ public class RendezvousUserController extends AbstractController {
 	public ModelAndView save(@Valid final Rendezvous rendezvous, final BindingResult binding) {
 		ModelAndView result;
 
-		if (binding.hasErrors())
+		if (binding.hasErrors()){
+			System.out.println(binding.getFieldErrors());
 			result = this.createEditModelAndView(rendezvous);
+		}
+
 		else
 			try {
 				this.rendezvousService.save(rendezvous);
@@ -156,8 +160,15 @@ public class RendezvousUserController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Rendezvous rendezvous, final String message) {
 		ModelAndView result;
+		
 		result = new ModelAndView("rendezvous/edit");
+//		
+//		Collection<User> attendants = new ArrayList<>();
+//		
+//		attendants = rendezvous.getListAttendants(); 
+//		
 		result.addObject("rendezvous", rendezvous);
+//		result.addObject("listAttendants", attendants);
 		result.addObject("message", message);
 		return result;
 	}

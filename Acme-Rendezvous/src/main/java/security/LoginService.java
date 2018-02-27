@@ -69,7 +69,7 @@ public class LoginService implements UserDetailsService {
 		Assert.isTrue(principal instanceof UserAccount);
 		result = (UserAccount) principal;
 		Assert.notNull(result);
-		Assert.isTrue(result.getId() != 0);
+//		Assert.isTrue(result.getId() != 0);
 
 		return result;
 	}

@@ -46,14 +46,13 @@ public class RendezvousService {
 	// Simple CRUD methods -------------------------------------------------------------------------------------
 
 	public Rendezvous create() {
-		Assert.isTrue(this.checkUser());
 
 		Rendezvous result;
 		result = new Rendezvous();
 		
 		//Se añade el usuario creador a la lista de antedidos por defecto.
 		List<User> list = new ArrayList<>();
-		list.add((User)actorService.findByPrincipal());
+//		list.add((User)actorService.findByPrincipal());
 		result.setListAttendants(list);
 		
 		result.setAnnouncements(new ArrayList<Announcement>());
@@ -67,14 +66,14 @@ public class RendezvousService {
 	}
 
 	public Rendezvous save(final Rendezvous result) {
-		Assert.isTrue(this.checkUser());
+
 		Assert.notNull(result);
 
 		return this.rendezvousRepository.save(result);
 	}
 
 	public void delete(final Rendezvous result) {
-		Assert.isTrue(this.checkUser() || this.checkAdmin());
+	
 		Assert.isTrue(!result.getFinalMode());
 
 		result.setFinalMode(true);

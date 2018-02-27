@@ -96,6 +96,7 @@ public class ProfileController extends AbstractController {
 			result.addObject("OK",userOk);
 		}else if(auth.equals("ADMIN")){
 			administrator = administratorService.findOne(a.getId());
+			result.addObject("OK",userOk);
 			result.addObject("actor",administrator);
 		}
 		
@@ -161,7 +162,7 @@ public class ProfileController extends AbstractController {
 	}
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveUser")
-	public ModelAndView save(@Valid final ActorForm actorForm, final BindingResult binding) {
+	public ModelAndView saveUser(@Valid final ActorForm actorForm, final BindingResult binding) {
 		ModelAndView result;
 		User actor;
 		
@@ -172,6 +173,25 @@ public class ProfileController extends AbstractController {
 		} else
 			try {
 				userService.save(actor);
+				result = new ModelAndView("redirect:info.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(actor, "actor.commit.error");
+			}
+		return result;
+	}
+	
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveAdmin")
+	public ModelAndView saveAdmin(@Valid final ActorForm actorForm, final BindingResult binding) {
+		ModelAndView result;
+		Administrator actor;
+		
+		actor = administratorService.reconstruct(actorForm, binding);
+		if (binding.hasErrors()) {
+			System.out.println("Algo ha fallao: \n" + binding.getFieldErrors());
+			result = this.createEditModelAndView(actor);
+		} else
+			try {
+				administratorService.save(actor);
 				result = new ModelAndView("redirect:info.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(actor, "actor.commit.error");

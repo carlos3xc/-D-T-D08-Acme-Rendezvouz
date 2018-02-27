@@ -69,7 +69,7 @@ public class AdministratorService {
 	
 //Extra methods
 	
-	public Actor reconstruct(ActorForm actor, BindingResult binding){
+	public Administrator reconstruct(ActorForm actor, BindingResult binding){
 		Administrator result;
 		
 		result = administratorRepository.findOne(actor.getId());

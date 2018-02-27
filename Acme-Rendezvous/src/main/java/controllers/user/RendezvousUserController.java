@@ -1,7 +1,6 @@
 
 package controllers.user;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -21,6 +20,7 @@ import controllers.AbstractController;
 import domain.Actor;
 import domain.Rendezvous;
 import domain.User;
+import forms.RendezvousForm;
 
 @Controller
 @RequestMapping("/rendezvous/user")
@@ -97,9 +97,10 @@ public class RendezvousUserController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Rendezvous rendezvous, final BindingResult binding) {
+	public ModelAndView save(@Valid final RendezvousForm rendezvousForm, final BindingResult binding) {
 		ModelAndView result;
-
+		Rendezvous rendezvous;
+		rendezvous = rendezvousService.reconstruct(rendezvousForm, binding);
 		if (binding.hasErrors()){
 			System.out.println(binding.getFieldErrors());
 			result = this.createEditModelAndView(rendezvous);
@@ -168,7 +169,6 @@ public class RendezvousUserController extends AbstractController {
 //		attendants = rendezvous.getListAttendants(); 
 //		
 		
-		System.out.println(rendezvous.getUser());
 		result.addObject("rendezvous", rendezvous);
 //		result.addObject("listAttendants", attendants);
 		result.addObject("message", message);

@@ -14,8 +14,11 @@ package controllers;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,14 +29,13 @@ import security.LoginService;
 import services.ActorService;
 import services.AdministratorService;
 import services.RendezvousService;
-
 import services.UserService;
 import domain.Actor;
 import domain.Administrator;
 import domain.Announcement;
 import domain.Rendezvous;
-
 import domain.User;
+import forms.ActorForm;
 
 @Controller
 @RequestMapping("/profile")
@@ -94,6 +96,7 @@ public class ProfileController extends AbstractController {
 			result.addObject("OK",userOk);
 		}else if(auth.equals("ADMIN")){
 			administrator = administratorService.findOne(a.getId());
+			result.addObject("OK",userOk);
 			result.addObject("actor",administrator);
 		}
 		
@@ -158,69 +161,43 @@ public class ProfileController extends AbstractController {
 		return result;
 	}
 	
-	/*@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveExplorer")
-	public ModelAndView save(@Valid final Explorer explorer, final BindingResult binding) {
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveUser")
+	public ModelAndView saveUser(@Valid final ActorForm actorForm, final BindingResult binding) {
 		ModelAndView result;
+		User actor;
+		
+		actor = userService.reconstruct(actorForm, binding);
 		if (binding.hasErrors()) {
 			System.out.println("Algo ha fallao: \n" + binding.getFieldErrors());
-			result = this.createEditModelAndView(explorer);
+			result = this.createEditModelAndView(actor);
 		} else
 			try {
-				explorerService.save(explorer);
+				userService.save(actor);
 				result = new ModelAndView("redirect:info.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(explorer, "actor.commit.error");
+				result = this.createEditModelAndView(actor, "actor.commit.error");
 			}
 		return result;
 	}
 	
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveManager")
-	public ModelAndView save(@Valid final Manager manager, final BindingResult binding) {
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveAdmin")
+	public ModelAndView saveAdmin(@Valid final ActorForm actorForm, final BindingResult binding) {
 		ModelAndView result;
+		Administrator actor;
+		
+		actor = administratorService.reconstruct(actorForm, binding);
 		if (binding.hasErrors()) {
 			System.out.println("Algo ha fallao: \n" + binding.getFieldErrors());
-			result = this.createEditModelAndView(manager);
+			result = this.createEditModelAndView(actor);
 		} else
 			try {
-				managerService.save(manager);
+				administratorService.save(actor);
 				result = new ModelAndView("redirect:info.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(manager, "actor.commit.error");
+				result = this.createEditModelAndView(actor, "actor.commit.error");
 			}
 		return result;
 	}
-	
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveAdministrator")
-	public ModelAndView save(@Valid final Administrator administrator, final BindingResult binding) {
-		ModelAndView result;
-		if (binding.hasErrors()) {
-			System.out.println("Algo ha fallao: \n" + binding.getFieldErrors());
-			result = this.createEditModelAndView(administrator);
-		} else
-			try {
-				administratorService.save(administrator);
-				result = new ModelAndView("redirect:info.do");
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(administrator, "actor.commit.error");
-			}
-		return result;
-	}
-	
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveRanger")
-	public ModelAndView save(@Valid final Ranger ranger, final BindingResult binding) {
-		ModelAndView result;
-		if (binding.hasErrors()) {
-			System.out.println("Algo ha fallao: \n" + binding.getFieldErrors());
-			result = this.createEditModelAndView(ranger);
-		} else
-			try {
-				rangerService.save(ranger);
-				result = new ModelAndView("redirect:info.do");
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(ranger, "actor.commit.error");
-			}
-		return result;
-	}*/
 	
 	protected ModelAndView createEditModelAndView(final Actor actor) {
 		ModelAndView result;

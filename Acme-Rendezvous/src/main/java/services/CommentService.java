@@ -9,12 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.CommentRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Comment;
+import domain.Rendezvous;
+import forms.CommentForm;
+import forms.RendezvousForm;
 
 @Service
 @Transactional
@@ -22,6 +27,9 @@ public class CommentService {
 
 	@Autowired
 	private CommentRepository	commentRepository;
+	
+	@Autowired
+	private Validator validator;
 
 
 	// Simple CRUD methods ----------------------------------------------------
@@ -43,6 +51,25 @@ public class CommentService {
 		comment.setMoment(moment);
 		final Comment cSave = this.commentRepository.save(comment);
 		return cSave;
+	}
+	
+	public Comment reconstruct(CommentForm commentForm, BindingResult binding){
+		Comment result;
+		
+		if(commentForm.getId()==0){
+			result = this.create();
+		
+			result.setText(commentForm.getText());
+			result.setPicture(commentForm.getPicture());
+		}else{
+			result = commentRepository.findOne(commentForm.getId());
+			
+			result.setText(commentForm.getText());
+			result.setPicture(commentForm.getPicture());
+			
+			validator.validate(result, binding);
+		}
+		return result;
 	}
 
 	public void delete(final Comment comment) {

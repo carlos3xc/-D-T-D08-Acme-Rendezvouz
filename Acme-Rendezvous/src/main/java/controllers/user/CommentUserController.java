@@ -18,6 +18,7 @@ import controllers.AbstractController;
 import domain.Announcement;
 import domain.Comment;
 import domain.Rendezvous;
+import forms.CommentForm;
 
 
 @Controller
@@ -99,8 +100,10 @@ public class CommentUserController extends AbstractController {
 		// Save -----------------------------------------------------------------
 
 		@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-		public ModelAndView save(@Valid final Comment comment, final BindingResult binding) {
+		public ModelAndView save(@Valid final CommentForm commentForm, final BindingResult binding) {
 			ModelAndView result;
+			Comment comment;
+			comment = commentService.reconstruct(commentForm, binding);
 
 			if (binding.hasErrors())
 				result = this.createEditModelAndView(comment);

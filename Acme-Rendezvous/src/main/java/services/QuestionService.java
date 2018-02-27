@@ -10,6 +10,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.QuestionRepository;
+import domain.Answer;
 import domain.Question;
 
 @Service
@@ -40,6 +42,15 @@ public class QuestionService {
 
 	// Simple CRUD methods ----------------------------------------------------
 
+	public Question create() {
+		Question res = new Question();
+		
+		res.setAnswers(new ArrayList<Answer>());
+		res.setText("");
+		
+		return res;
+	}
+	
 	public Question save(final Question question) {
 		Question result;
 
@@ -68,6 +79,8 @@ public class QuestionService {
 
 		return result;
 	}
+
+
 
 	// Other business methods -------------------------------------------------
 

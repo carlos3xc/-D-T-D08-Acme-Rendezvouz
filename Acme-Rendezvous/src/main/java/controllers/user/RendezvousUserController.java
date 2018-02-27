@@ -45,8 +45,11 @@ public class RendezvousUserController extends AbstractController {
 
 		Collection<Rendezvous> rendezvouses;
 		rendezvouses = this.rendezvousService.findAll();
+		
+		User logged = (User) actorService.findByPrincipal();
 
 		result = new ModelAndView("rendezvous/list");
+		result.addObject("logged", logged);
 		result.addObject("rendezvouses", rendezvouses);
 		result.addObject("requestURI", "rendezvous/list.do");
 		return result;
@@ -167,8 +170,7 @@ public class RendezvousUserController extends AbstractController {
 //		
 //		attendants = rendezvous.getListAttendants(); 
 //		
-		
-		System.out.println(rendezvous.getUser());
+
 		result.addObject("rendezvous", rendezvous);
 //		result.addObject("listAttendants", attendants);
 		result.addObject("message", message);

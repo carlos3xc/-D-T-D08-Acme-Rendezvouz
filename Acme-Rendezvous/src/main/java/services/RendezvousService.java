@@ -61,6 +61,7 @@ public class RendezvousService {
 //		list.add((User)actorService.findByPrincipal());
 		result.setListAttendants(list);
 		
+		result.setUser((User) actorService.findByPrincipal());
 		result.setAnnouncements(new ArrayList<Announcement>());
 		result.setComments(new ArrayList<Comment>());
 		result.setFinalMode(false);
@@ -68,6 +69,8 @@ public class RendezvousService {
 		result.setQuestions(new ArrayList<Question>());
 		result.setFlag("PASSED");
 
+		System.out.println(result.getUser());
+		
 		return result;
 	}
 

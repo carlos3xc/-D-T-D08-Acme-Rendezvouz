@@ -167,6 +167,8 @@ public class RendezvousUserController extends AbstractController {
 //		
 //		attendants = rendezvous.getListAttendants(); 
 //		
+		
+		System.out.println(rendezvous.getUser());
 		result.addObject("rendezvous", rendezvous);
 //		result.addObject("listAttendants", attendants);
 		result.addObject("message", message);

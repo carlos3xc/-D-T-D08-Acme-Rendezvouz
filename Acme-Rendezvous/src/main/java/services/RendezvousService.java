@@ -42,6 +42,9 @@ public class RendezvousService {
 	private UserService userService;
 	
 	@Autowired
+	private CommentService commentService;
+	
+	@Autowired
 	private Validator validator;
 	
 	// Constructor ---------------------------------------------------------------------------------------------
@@ -170,7 +173,10 @@ public class RendezvousService {
 		return rendezvousRepository.getRendezvousById(rendezvousId);
 	}
 	
-	public Rendezvous getRendezvousByComment(Comment comment){
+	public Rendezvous getRendezvousByCommentId(int commentId){
+		System.out.println("rendez service 1");
+		Comment comment = commentService.findOne(commentId);
+		System.out.println("rendez service 2" + comment);
 		return rendezvousRepository.getRendezvousByComment(comment);
 	}
 	private Boolean checkUser() {

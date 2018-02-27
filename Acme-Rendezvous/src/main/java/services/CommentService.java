@@ -16,6 +16,7 @@ import repositories.CommentRepository;
 import security.Authority;
 import security.LoginService;
 import domain.Comment;
+import domain.User;
 import forms.CommentForm;
 
 @Service
@@ -24,6 +25,9 @@ public class CommentService {
 
 	@Autowired
 	private CommentRepository	commentRepository;
+	
+	@Autowired
+	private ActorService actorService;
 	
 	@Autowired
 	private Validator validator;
@@ -45,8 +49,12 @@ public class CommentService {
 		Date moment;
 		millis = System.currentTimeMillis() - 1000;
 		moment = new Date(millis);
-		comment.setMoment(moment);
+		comment.setMoment(moment);	
+		User user = (User) actorService.findByPrincipal();
+		comment.setUser(user);
 		final Comment cSave = this.commentRepository.save(comment);
+		System.out.println("save comment " + cSave);
+		
 		return cSave;
 	}
 	

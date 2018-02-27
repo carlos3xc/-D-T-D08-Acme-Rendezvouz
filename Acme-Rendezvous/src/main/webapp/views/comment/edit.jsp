@@ -30,16 +30,16 @@
 		<form:hidden path="moment" />
 		<form:hidden path="user" />
 		<form:hidden path="replies" />
-		
+
 		<acme:textbox code="comment.picture" path="picture" />
 		<acme:textarea code="comment.text" path="text" />
 
-		<acme:submit code="comment.save" name="save" />
-		<acme:cancel code="comment.cancel" url="rendezvous/display.do?rendezvousId=${rendezvous.id}" />
+		<acme:submit code="comment.save" name ="save"/>
+		<acme:cancel code="comment.cancel" url="rendezvous/display.do?rendezvousId=${rendezvous.id}" />  
 		
 		<jstl:if test="${comment.id != 0}">
 			<input type="submit" name="delete"
-				value="<spring:message code="comment" />"
+				value="<spring:message code="comment.delete" />"
 				onclick="return confirm('<spring:message code="comment.delete.confirm" />')" />&nbsp;
 		</jstl:if>
 		<br />

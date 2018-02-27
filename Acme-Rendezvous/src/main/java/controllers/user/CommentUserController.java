@@ -55,14 +55,17 @@ public class CommentUserController extends AbstractController {
 	// Creation -----------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
-
+	public ModelAndView create(@RequestParam final int rendezvousId) {
 		ModelAndView result;
 		Comment comment;
-
+		Rendezvous rendezvous;
 		comment = this.commentService.create();
-
-		result = this.createEditModelAndView(comment);
+		rendezvous = rendezvousService.findOne(rendezvousId);
+		rendezvous.getComments().add(comment);
+		System.out.println("lista comments " + rendezvous.getComments() + " comment nuestro " + comment);
+		result = new ModelAndView("comment/edit");
+		result.addObject("comment",comment);
+		result.addObject("rendezvous",rendezvous);
 
 		return result;
 	}
@@ -110,13 +113,17 @@ public class CommentUserController extends AbstractController {
 			else
 				try {
 					this.commentService.save(comment);
-					Rendezvous r = rendezvousService.getRendezvousByComment(comment);
-					result = new ModelAndView("redirect:rendezvous/display.do?rendezvousId="+r.getId());
+					Rendezvous r = rendezvousService.getRendezvousByCommentId(comment.getId());
+					r.getComments().add(comment);
+					rendezvousService.save(r);
+					String url = "redirect:rendezvous/display.do";
+					result = new ModelAndView(url);
 				} catch (final Throwable oops) {
-					result = this.createEditModelAndView(comment, "announcement.commit.error");
+					result = this.createEditModelAndView(comment, "comment.commit.error");
 				}
 			return result;
 		}
+		
 	
 	// Ancillary methods ------------------------------------------------------
 
@@ -130,11 +137,6 @@ public class CommentUserController extends AbstractController {
 
 		ModelAndView result;
 		result = new ModelAndView("comment/edit");
-		System.out.println("bueno buenoooo");
-		Rendezvous r = rendezvousService.getRendezvousByComment(comment);
-		System.out.println("pero no me grites");
-		result.addObject("rendezvous",r);
-		System.out.println("joder chocho");
 		result.addObject("comment", comment);
 		result.addObject("message", message);
 		return result;

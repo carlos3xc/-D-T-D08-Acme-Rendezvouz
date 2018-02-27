@@ -17,10 +17,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.QuestionRepository;
 import domain.Answer;
 import domain.Question;
+import forms.QuestionForm;
 
 @Service
 @Transactional
@@ -33,7 +36,10 @@ public class QuestionService {
 
 
 	// Supporting services ----------------------------------------------------
-
+	
+	@Autowired
+	private Validator validator;
+	
 	// Constructors -----------------------------------------------------------
 
 	public QuestionService() {
@@ -80,8 +86,23 @@ public class QuestionService {
 		return result;
 	}
 
-
-
 	// Other business methods -------------------------------------------------
-
+	
+	public Question reconstruct(QuestionForm question, BindingResult binding){
+		Question result;
+		
+		if(question.getId()==0){
+			result = this.create();
+			
+			result.setText(question.getText());
+		}else{
+			result = questionRepository.findOne(question.getId());
+			
+			result.setText(question.getText());
+			
+			validator.validate(result, binding);
+		}
+		return result;
+	}
+	
 }

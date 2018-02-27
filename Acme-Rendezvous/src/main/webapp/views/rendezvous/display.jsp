@@ -95,4 +95,21 @@
 		<a href="comment/user/create.do?rendezvousId=${rendezvous.id }"><spring:message code="rendezvous.comment.create"/></a>
 	</jstl:if>
 		
+		
+
+	<display:table name="rendezvous.questions" id="row" requestURI="rendezvous/display.do" pagesize="5">
 	
+		<spring:message code="question.text" var="textHeader"/>
+		<display:column property="text" title="${textHeader}" sortable="false" />
+		
+		
+	<jstl:if test="${rendezvous.user.id == logged}">
+
+		<display:column>
+				<a href="question/edit.do?questionId=${row.id}"><spring:message code="rendezvous.edit"/></a>
+		</display:column>
+			
+	</jstl:if>
+			
+	</display:table>
+

@@ -52,7 +52,9 @@
 		<security:intercept-url pattern="/register/**" access="isAnonymous()" /> 
 		<security:intercept-url pattern="/user/list.do" access="permitAll" /> 
 		<security:intercept-url pattern="/rendezvous/list.do" access="permitAll" /> 
+		<security:intercept-url pattern="/rendezvous/display.do" access="permitAll" />
 		<security:intercept-url pattern="/announcement/list.do" access="permitAll" /> 
+		<security:intercept-url pattern="/announcement/rendezvous/list.do" access="permitAll" /> 
 
 		<security:intercept-url pattern="/profile/info.do" access="permitAll" />
 		<security:intercept-url pattern="/profile/edit.do" access="isAuthenticated()" />  

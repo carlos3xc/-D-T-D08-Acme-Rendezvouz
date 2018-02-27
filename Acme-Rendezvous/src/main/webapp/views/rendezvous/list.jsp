@@ -11,8 +11,8 @@
 
 
 	<display:table name="rendezvouses" id="row" requestURI="rendezvous/list.do" pagesize="5">
-		<security:authorize access="hasRole('USER')">
 			<display:column >
+			<security:authorize access="hasRole('USER')">
 			<jstl:if test="${row.finalMode == false}">
 				<a href="rendezvous/user/edit.do?rendezvousId=${row.id}">
 					<spring:message	code="rendezvous.edit" />
@@ -20,9 +20,13 @@
 			</jstl:if>
 					<a href="rendezvous/user/cancel.do?rendezvousId=${row.id}" onclick="return confirm('<spring:message code="rendezvous.cancel.confirm" />')">
 						<spring:message	code="rendezvous.cancel" />
-					</a>
+					</a><br/>
+			</security:authorize>
+					
+			<a href="rendezvous/display.do?rendezvousId=${row.id}">
+					<spring:message	code="rendezvous.display" />
+				</a>
 		</display:column>	
-		</security:authorize>
 	
 	
 		<spring:message code="rendezvous.name" var="nameHeader"/>
@@ -39,12 +43,12 @@
 		<display:column title="${gpsCoordinateHeader}" >
 			${row.gpsCoordinates.latitude} ${row.gpsCoordinates.longitude}
 		</display:column>
-		
-		<spring:message code="rendezvous.announcements" var="announcementsHeader"/>
+<!-- 		
+ 	<spring:message code="rendezvous.announcements" var="announcementsHeader"/>
 		<display:column title="${announcementsHeader}" >
-			<a href="announcement/list.do?rendezvousId=${row.id }"><spring:message code="rendezvous.announcement.more"/></a>
-		</display:column>
-		
+			<a href="announcement/rendezvous/list.do?rendezvousId=${row.id }"><spring:message code="rendezvous.announcement.more"/></a>
+		</display:column> -->
+	 
 		
 		<spring:message code="rendezvous.listAttendants" var="attendantsHeader"/>
 		<display:column title="${attendantsHeader}">

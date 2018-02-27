@@ -29,4 +29,7 @@ public interface RendezvousRepository extends JpaRepository<Rendezvous, Integer>
 	
 	@Query("select r from Rendezvous r where ?1 member of r.listAttendants")
 	Collection<Rendezvous> getRendezvousUser(User user);
+	
+	@Query("select r from Rendezvous r where r.id = ?1")
+	Rendezvous getRendezvousById(int rendezvousId);
 }

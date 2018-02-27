@@ -15,7 +15,6 @@ import org.springframework.validation.Validator;
 import repositories.CommentRepository;
 import security.Authority;
 import security.LoginService;
-import security.UserAccount;
 import domain.Comment;
 import domain.Rendezvous;
 import forms.CommentForm;
@@ -93,20 +92,22 @@ public class CommentService {
 	}
 
 	private Boolean checkUser() {
-		Boolean result = false;
-		final UserAccount ua = LoginService.getPrincipal();
-		for (final Authority a : ua.getAuthorities())
-			if (a.equals(Authority.USER))
-				result = true;
-		return result;
+		final Collection<Authority> a = LoginService.getPrincipal().getAuthorities();
+		Boolean res = false;
+		for (final Authority b : a)
+			if (b.getAuthority().equals(Authority.USER))
+				res = true;
+		return res;
 	}
 
 	private Boolean checkAdmin() {
-		Boolean result = false;
-		final UserAccount ua = LoginService.getPrincipal();
-		for (final Authority a : ua.getAuthorities())
-			if (a.equals(Authority.ADMIN))
-				result = true;
-		return result;
+		final Collection<Authority> a = LoginService.getPrincipal().getAuthorities();
+		Boolean res = false;
+		for (final Authority b : a)
+			if (b.getAuthority().equals(Authority.ADMIN)) {
+				res = true;
+				break;
+			}
+		return res;
 	}
 }

@@ -23,29 +23,8 @@
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:hidden path="isSuspicious"/>
-	<form:hidden path="isBanned"/>
-	<form:hidden path="userAccount"/>
-	<form:hidden path="socialIdentities"/>	
-	<form:hidden path="folders" />
 	
-	<jstl:if test="${authority == 'EXPLORER'}">
-		<form:hidden path="finder"/>
-		<form:hidden path="contacts"/>
-		<form:hidden path="applications"/>
-		<form:hidden path="stories"/>
-		<form:hidden path="isEnrol"/>
-	</jstl:if>
-	<jstl:if test="${authority == 'MANAGER'}">
-		<form:hidden path="notes"/>
-		<form:hidden path="trips"/>
-		<form:hidden path="survivalClasses"/>
-	</jstl:if>
-	<jstl:if test="${authority == 'RANGER'}">
-		<form:hidden path="curricula"/>
-		<form:hidden path="trips"/>
-	</jstl:if>
-			
+	<form:hidden path="userAccount"/>
 
 	<form:label path="name">
 		<spring:message code="actor.name" />:
@@ -68,33 +47,29 @@
 	<form:errors cssClass="error" path="email" />
 	<br />	
 		
-	<form:label path="phone">
+	<form:label path="phoneNumber">
 		<spring:message code="actor.phone" />:
 	</form:label>
-	<form:input path="phone" />
-	<form:errors cssClass="error" path="phone" />
+	<form:input path="phoneNumber" />
+	<form:errors cssClass="error" path="phoneNumber" />
 	<br />
 		
-	<form:label path="address">
+	<form:label path="postalAddress">
 		<spring:message code="actor.address" />:
 	</form:label>
-	<form:input path="address" />
-	<form:errors cssClass="error" path="address" />
+	<form:input path="postalAddress" />
+	<form:errors cssClass="error" path="postalAddress" />
 	<br />
-	<jstl:if test="${authority == 'EXPLORER'}">
-		<input type="submit" name="saveExplorer" value="<spring:message code="actor.save" />" />&nbsp; 
-	</jstl:if>
-	<jstl:if test="${authority == 'MANAGER'}">
-		<input type="submit" name="saveManager" value="<spring:message code="actor.save" />" />&nbsp; 
-	</jstl:if>
-	<jstl:if test="${authority == 'ADMINISTRATOR'}">
-		<input type="submit" name="saveAdministrator" value="<spring:message code="actor.save" />" />&nbsp; 
-	</jstl:if>
-	<jstl:if test="${authority == 'RANGER'}">
-		<input type="submit" name="saveRanger" value="<spring:message code="actor.save" />" />&nbsp; 
-	</jstl:if>
-		<input type="button" name="cancel"
-		value="<spring:message code="actor.cancel" />"
+	
+	<security:authorize access="hasRole('ADMIN')">
+		<input type="submit" name="saveAdmin" value="<spring:message code="actor.save" />" />&nbsp; 
+	</security:authorize>
+	
+	<security:authorize access="hasRole('USER')">
+		<input type="submit" name="saveUser" value="<spring:message code="actor.save" />" />&nbsp; 
+	</security:authorize>
+	
+	<input type="button" name="cancel" value="<spring:message code="actor.cancel" />"
 		onclick="javascript: window.location.replace('profile/info.do')" />
 	<br />
 

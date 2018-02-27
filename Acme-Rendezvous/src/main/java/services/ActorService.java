@@ -127,7 +127,7 @@ public class ActorService {
 	}
 
 	// Other business methods -------------------------------------------------
-
+	
 	public Actor findByUserAccountId(int id) {
 		Actor result;
 		result = actorRepository.findByUserAccountId(id);

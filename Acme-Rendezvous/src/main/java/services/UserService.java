@@ -2,11 +2,12 @@ package services;
 
 
 import java.util.Collection;
-import java.util.LinkedList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.UserRepository;
 import security.Authority;
@@ -14,6 +15,7 @@ import security.UserAccount;
 import security.UserAccountService;
 import domain.Actor;
 import domain.User;
+import forms.ActorForm;
 
 
 @Service
@@ -29,6 +31,9 @@ public class UserService {
 	
 	@Autowired
 	private UserAccountService userAccountService;
+	
+	@Autowired
+	private Validator validator;
 	
 	// Constructor ---------------------------------------------------------------------------------------------
 	
@@ -76,6 +81,31 @@ public class UserService {
 	
 	//The ratio of users who have ever created a rendezvous 
 	//versus the users who have never created any rendezvouses.
+	
+	public User reconstruct(ActorForm actor, BindingResult binding){
+		User result;
+		
+		if(actor.getId()==0){
+			result = this.create();
+					
+			result.setName(actor.getName());
+			result.setSurname(actor.getSurname());
+			result.setEmail(actor.getEmail());
+			result.setPhoneNumber(actor.getPhoneNumber());
+			result.setPostalAddress(actor.getPostalAddress());
+		}else{
+			result = userRepository.findOne(actor.getId());
+			
+			result.setName(actor.getName());
+			result.setSurname(actor.getSurname());
+			result.setEmail(actor.getEmail());
+			result.setPhoneNumber(actor.getPhoneNumber());
+			result.setPostalAddress(actor.getPostalAddress());
+			
+			validator.validate(result,binding);
+		}
+		return result;
+	}
 	
 	public Double ratioUsersCreatedRendezvous(){
 		Double res;

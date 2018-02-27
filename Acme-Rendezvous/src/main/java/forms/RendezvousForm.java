@@ -111,5 +111,5 @@ public class RendezvousForm extends DomainEntity {
 	public void setFlag(final String flag){
 		this.flag = flag;
 	}
-
+	
 }

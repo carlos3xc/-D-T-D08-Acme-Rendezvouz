@@ -91,7 +91,7 @@
 		</display:column>
 	</display:table>
 	<jstl:if test="${comment == 'OK' }">
-		<a href="comment/user/edit.do?rendezvousId=${rendezvous.id}"><spring:message code="rendezvous.comment.create"/></a>
+		<a href="comment/user/create.do"><spring:message code="rendezvous.comment.create"/></a>
 	</jstl:if>
 		
 	

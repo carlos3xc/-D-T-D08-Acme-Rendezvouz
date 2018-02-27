@@ -71,10 +71,13 @@ public class RendezvousController extends AbstractController {
 				}
 			}		
 			
+			Actor logged = (User)actorService.findByPrincipal();
+			
 
 			result = new ModelAndView("rendezvous/display");
 			result.addObject("rendezvous", rendezvous);
 			result.addObject("comment", comment);
+			result.addObject("logged", logged);
 			result.addObject("requestURI", "rendezvous/display.do");
 			return result;
 		}

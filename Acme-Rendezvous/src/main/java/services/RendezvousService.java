@@ -130,6 +130,10 @@ public class RendezvousService {
 	public Rendezvous getRendezvousById(int rendezvousId){
 		return rendezvousRepository.getRendezvousById(rendezvousId);
 	}
+	
+	public Rendezvous getRendezvousByComment(Comment comment){
+		return rendezvousRepository.getRendezvousByComment(comment);
+	}
 	private Boolean checkUser() {
 		Boolean result = false;
 		final UserAccount ua = LoginService.getPrincipal();

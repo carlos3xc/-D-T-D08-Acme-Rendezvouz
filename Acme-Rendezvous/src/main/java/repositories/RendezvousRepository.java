@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import domain.Comment;
 import domain.Rendezvous;
 import domain.User;
 
@@ -32,4 +33,7 @@ public interface RendezvousRepository extends JpaRepository<Rendezvous, Integer>
 	
 	@Query("select r from Rendezvous r where r.id = ?1")
 	Rendezvous getRendezvousById(int rendezvousId);
+	
+	@Query("select r from Rendezvous r where ?1 member of r.comments")
+	Rendezvous getRendezvousByComment(Comment comment);
 }

@@ -94,4 +94,20 @@
 		<a href="comment/user/create.do"><spring:message code="rendezvous.comment.create"/></a>
 	</jstl:if>
 		
+		
+<jstl:if test ="${logged.equals(rendezvous.user)}">
+	<display:table name="rendezvous.questions" id="row" requestURI="rendezvous/display.do" pagesize="5">
 	
+		<spring:message code="question.text" var="textHeader"/>
+		<display:column property="text" title="${textHeader}" sortable="false" />
+		
+		<spring:message code="question.answers" var="attendantsHeader"/>
+			<display:column title="${attendantsHeader}">
+			<jstl:forEach var="x" items="${row.answers}">
+					<jstl:out value="${x.user}:"></jstl:out><br/>
+					<jstl:out value="${x.text}:"></jstl:out><br/>
+
+			</jstl:forEach>
+		</display:column>
+	</display:table>
+</jstl:if>

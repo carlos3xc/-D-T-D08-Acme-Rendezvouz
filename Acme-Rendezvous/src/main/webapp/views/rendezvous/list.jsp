@@ -14,9 +14,11 @@
 			<display:column >
 			<security:authorize access="hasRole('USER')">
 			<jstl:if test="${row.finalMode == false}">
+			<jstl:if test="${row.user.equals(logged)==true}">
 				<a href="rendezvous/user/edit.do?rendezvousId=${row.id}">
 					<spring:message	code="rendezvous.edit" />
 				</a><br/>
+			</jstl:if>
 			</jstl:if>
 					<a href="rendezvous/user/cancel.do?rendezvousId=${row.id}" onclick="return confirm('<spring:message code="rendezvous.cancel.confirm" />')">
 						<spring:message	code="rendezvous.cancel" />

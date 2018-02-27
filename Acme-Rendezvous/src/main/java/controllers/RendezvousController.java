@@ -16,6 +16,7 @@ import services.UserService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Rendezvous;
+import domain.User;
 
 
 @Controller
@@ -39,9 +40,12 @@ public class RendezvousController extends AbstractController {
 		ModelAndView result;
 
 		Collection<Rendezvous> rendezvouses;
-		rendezvouses = rendezvousService.findAll();
+		rendezvouses = this.rendezvousService.findAll();
+		
+		User logged = (User) actorService.findByPrincipal();
 
 		result = new ModelAndView("rendezvous/list");
+		result.addObject("logged", logged);
 		result.addObject("rendezvouses", rendezvouses);
 		result.addObject("requestURI", "rendezvous/list.do");
 		return result;

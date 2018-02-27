@@ -45,7 +45,6 @@ public class Question extends DomainEntity {
 
 	private Collection<Answer>	answers;
 
-
 	@NotNull
 	@Valid
 	@OneToMany(cascade = CascadeType.ALL)

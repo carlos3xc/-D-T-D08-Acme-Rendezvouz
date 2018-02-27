@@ -12,4 +12,6 @@ import domain.User;
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Integer> {
 
+	
+
 }

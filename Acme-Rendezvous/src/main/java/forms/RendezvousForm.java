@@ -8,32 +8,28 @@
  * http://www.tdg-seville.info/License.html
  */
 
-package domain;
+package forms;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.Valid;
 import javax.validation.constraints.Future;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import domain.DomainEntity;
+import domain.Location;
+
 @Entity
 @Access(AccessType.PROPERTY)
-public class Rendezvous extends DomainEntity {
+public class RendezvousForm extends DomainEntity {
 
 	// Attributes -------------------------------------------------------------
 
@@ -115,77 +111,5 @@ public class Rendezvous extends DomainEntity {
 	public void setFlag(final String flag){
 		this.flag = flag;
 	}
-
-
-	// Relationships ----------------------------------------------------------
-
-	private User 						user;
-	private Collection<Comment> 		comments;
-	private Collection<Rendezvous> 		linkedRendezvous;
-	private Collection<Question> 		questions;
-	private Collection<Announcement> 	announcements;
-	private Collection<User> 			listAttendants;
-
-
-
-	@NotNull
-	@Valid
-	@ManyToOne(optional = false)
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(final User user) {
-		this.user = user;
-	}
 	
-	@Valid
-	@OneToMany(cascade = CascadeType.ALL)
-	public Collection<Comment> getComments(){
-		return this.comments;
-	}
-	
-	public void setComments(final Collection<Comment> comments){
-		this.comments = comments;
-	}
-	
-	@ManyToMany 
-	public Collection<User> getListAttendants(){
-		return this.listAttendants;
-	}
-	
-	public void setListAttendants(final Collection<User> listAttendants){
-		this.listAttendants = listAttendants;
-	}
-	
-	
-	@Valid
-	@OneToMany(cascade = CascadeType.ALL)
-	public Collection<Question> getQuestions(){
-		return this.questions;
-	}
-	
-	public void setQuestions(final Collection<Question> questions){
-		this.questions = questions;
-	}
-	
-	@Valid
-	@OneToMany()
-	public Collection<Announcement> getAnnouncements(){
-		return this.announcements;
-	}
-	
-	public void setAnnouncements(final Collection<Announcement> announcements){
-		this.announcements = announcements;
-	}
-	
-	@Valid
-	@OneToMany()
-	public Collection<Rendezvous> getLinkedRendezvous(){
-		return this.linkedRendezvous;
-	}
-	
-	public void setLinkedRendezvous(final Collection<Rendezvous> linkedRendezvous){
-		this.linkedRendezvous = linkedRendezvous;
-	}
 }

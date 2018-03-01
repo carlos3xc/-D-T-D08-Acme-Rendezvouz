@@ -102,14 +102,14 @@
 		<spring:message code="question.text" var="textHeader"/>
 		<display:column property="text" title="${textHeader}" sortable="false" />
 		
-		
+	<!--  
 	<jstl:if test="${rendezvous.user.id == logged}">
 
 		<display:column>
 				<a href="question/edit.do?questionId=${row.id}"><spring:message code="rendezvous.edit"/></a>
 		</display:column>
 			
-	</jstl:if>
+	</jstl:if>-->
 			
 	</display:table>
 

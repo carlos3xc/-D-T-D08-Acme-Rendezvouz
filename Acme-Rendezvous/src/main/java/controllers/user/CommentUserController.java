@@ -61,6 +61,7 @@ public class CommentUserController extends AbstractController {
 		Rendezvous rendezvous;
 		comment = this.commentService.create();
 		rendezvous = rendezvousService.findOne(rendezvousId);
+		System.out.println("id comment create " + comment.getId());
 		rendezvous.getComments().add(comment);
 		System.out.println("lista comments " + rendezvous.getComments() + " comment nuestro " + comment);
 		result = new ModelAndView("comment/edit");
@@ -108,13 +109,18 @@ public class CommentUserController extends AbstractController {
 			Comment comment;
 			comment = commentService.reconstruct(commentForm, binding);
 
-			if (binding.hasErrors())
+			if (binding.hasErrors()){
+				System.out.println(binding.getFieldErrors());
 				result = this.createEditModelAndView(comment);
-			else
+			}else
 				try {
-					this.commentService.save(comment);
+					System.out.println("save 1 con id " + comment.getId());
 					Rendezvous r = rendezvousService.getRendezvousByCommentId(comment.getId());
-					r.getComments().add(comment);
+					System.out.println("save 2");
+					r.getComments().remove(comment);
+					System.out.println("save 3");
+					this.commentService.save(comment);
+					System.out.println("save 4");
 					rendezvousService.save(r);
 					String url = "redirect:rendezvous/display.do";
 					result = new ModelAndView(url);

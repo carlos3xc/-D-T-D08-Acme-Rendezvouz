@@ -16,7 +16,6 @@ import services.UserService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Rendezvous;
-import domain.User;
 
 
 @Controller
@@ -40,12 +39,9 @@ public class RendezvousController extends AbstractController {
 		ModelAndView result;
 
 		Collection<Rendezvous> rendezvouses;
-		rendezvouses = this.rendezvousService.findAll();
-		
-		User logged = (User) actorService.findByPrincipal();
+		rendezvouses = rendezvousService.findAll();
 
 		result = new ModelAndView("rendezvous/list");
-		result.addObject("logged", logged);
 		result.addObject("rendezvouses", rendezvouses);
 		result.addObject("requestURI", "rendezvous/list.do");
 		return result;
@@ -61,8 +57,8 @@ public class RendezvousController extends AbstractController {
 			String comment= null;
 			Actor aux = null;
 			
-			if(actorService.findByPrincipal() != null){
-				aux = actorService.findByPrincipal();
+			if(LoginService.getPrincipal2() != null){
+				aux = actorService.findByUserAccount(LoginService.getPrincipal());
 				for(Actor a: rendezvous.getListAttendants()){
 					if(a.getId() == aux.getId()){
 						comment = "OK";
@@ -72,13 +68,9 @@ public class RendezvousController extends AbstractController {
 			}		
 			
 
-			Integer loggedUserId = actorService.findByPrincipal().getId();
-			System.out.println(loggedUserId);
-
 			result = new ModelAndView("rendezvous/display");
 			result.addObject("rendezvous", rendezvous);
 			result.addObject("comment", comment);
-			result.addObject("logged", loggedUserId);
 			result.addObject("requestURI", "rendezvous/display.do");
 			return result;
 		}

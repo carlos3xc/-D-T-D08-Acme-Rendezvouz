@@ -24,8 +24,6 @@
 			<li><a class="fNiv"><spring:message	code="master.page.administrator" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="rendezvous/administrator/list.do"><spring:message code="master.page.user.list.rendezvous" /></a></li>
-					<li><a href="administrator/dashboard.do"><spring:message code="master.page.administrator.dashboard" /></a></li>					
 				</ul>
 			</li>
 		</security:authorize>

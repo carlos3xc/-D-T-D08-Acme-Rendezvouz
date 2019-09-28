@@ -69,7 +69,33 @@ public class LoginService implements UserDetailsService {
 		Assert.isTrue(principal instanceof UserAccount);
 		result = (UserAccount) principal;
 		Assert.notNull(result);
-		Assert.isTrue(result.getId() != 0);
+//		Assert.isTrue(result.getId() != 0);
+
+		return result;
+	}
+	
+	public static UserAccount getPrincipal2() {
+		UserAccount result;
+		SecurityContext context;
+		Authentication authentication;
+		Object principal;
+
+		// If the asserts in this method fail, then you're
+		// likely to have your Tomcat's working directory
+		// corrupt. Please, clear your browser's cache, stop
+		// Tomcat, update your Maven's project configuration,
+		// clean your project, clean Tomcat's working directory,
+		// republish your project, and start it over.
+		
+		context = SecurityContextHolder.getContext();
+		
+		authentication = context.getAuthentication();
+		
+		principal = authentication.getPrincipal();
+		if(principal.toString().equals("anonymousUser"))
+			result = null;
+		else
+			result = (UserAccount) principal;
 
 		return result;
 	}

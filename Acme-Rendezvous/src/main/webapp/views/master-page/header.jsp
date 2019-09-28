@@ -24,25 +24,39 @@
 			<li><a class="fNiv"><spring:message	code="master.page.administrator" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="administrator/action-1.do"><spring:message code="master.page.administrator.action.1" /></a></li>
-					<li><a href="administrator/action-2.do"><spring:message code="master.page.administrator.action.2" /></a></li>					
 				</ul>
 			</li>
 		</security:authorize>
 		
-		<security:authorize access="hasRole('CUSTOMER')">
-			<li><a class="fNiv"><spring:message	code="master.page.customer" /></a>
+		<security:authorize access="hasRole('USER')">			
+			<li><a class="fNiv"><spring:message code="master.page.rendezvous" /></a>	
+			<ul>
+					<li class="arrow"></li>
+					<li><a href="rendezvous/list.do"><spring:message code="master.page.user.list.rendezvous" /></a></li>
+					<li><a href="rendezvous/user/create.do"><spring:message code="master.page.user.create.rendezvous" /></a></li>					
+			</ul>
+			<li><a class="fNiv"><spring:message code="master.page.list.announcement" /></a>	
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="customer/action-1.do"><spring:message code="master.page.customer.action.1" /></a></li>
-					<li><a href="customer/action-2.do"><spring:message code="master.page.customer.action.2" /></a></li>					
+					<li><a href="announcement/list.do"><spring:message code="master.page.user.list.announcement" /></a>
+					<li><a href="announcement/user/create.do"><spring:message code="master.page.user.create.announcement" /></a>
+						
 				</ul>
 			</li>
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
+			<li><a class="fNiv" href="register/createUser.do"><spring:message code="master.page.register" /></a>
+			<li><a class="fNiv" href="rendezvous/list.do"><spring:message code="master.page.list.rendezvous" /></a>
+			<li><a class="fNiv" href="announcement/list.do"><spring:message code="master.page.list.announcement" /></a>
 		</security:authorize>
+		
+		<security:authorize access="permitAll">
+						<li><a class="fNiv" href="user/list.do"><spring:message code="master.page.list.user" /></a>
+			
+		</security:authorize>
+		
 		
 		<security:authorize access="isAuthenticated()">
 			<li>
@@ -52,9 +66,7 @@
 				</a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="profile/action-1.do"><spring:message code="master.page.profile.action.1" /></a></li>
-					<li><a href="profile/action-2.do"><spring:message code="master.page.profile.action.2" /></a></li>
-					<li><a href="profile/action-3.do"><spring:message code="master.page.profile.action.3" /></a></li>					
+					<li><a href="profile/info.do"><spring:message code="master.page.profile" /></a></li>				
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>
 			</li>

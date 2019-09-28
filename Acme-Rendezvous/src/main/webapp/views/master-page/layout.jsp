@@ -19,6 +19,25 @@
 <html>
 <head>
 
+    <script type='text/javascript'>
+        function addFields(){
+            var number = document.getElementById("question").value;
+            var container = document.getElementById("container");
+            while (container.hasChildNodes()) {
+                container.removeChild(container.lastChild);
+            }
+            for (i=0;i<number;i++){
+                container.appendChild(document.createTextNode("Questions " + (i+1)));
+                var input = document.createElement("input");
+                input.type = "text";
+                input.name = "member" + i;
+                container.appendChild(input);
+                container.appendChild(document.createElement("br"));
+            }
+        }
+ 
+    </script>
+
 <base
 	href="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/" />
 

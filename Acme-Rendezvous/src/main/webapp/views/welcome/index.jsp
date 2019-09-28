@@ -16,6 +16,15 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p><spring:message code="welcome.greeting.prefix" /> ${name}<spring:message code="welcome.greeting.suffix" /></p>
+<jstl:if test="${success == 'OK' }">
+	<p><b style="color:green;"><spring:message code="welcome.register"/></b></p>
+</jstl:if>
+
+<p><spring:message code="welcome.greeting" /> </p>
+<!-- 
+ <input type="text" id="member" name="member" value="">Number of members: (max. 10)<br />
+    <a href="#" id="filldetails" onclick="addFields()">Fill Details</a>
+    <div id="container"></div>
+  -->
 
 <p><spring:message code="welcome.greeting.current.time" /> ${moment}</p> 

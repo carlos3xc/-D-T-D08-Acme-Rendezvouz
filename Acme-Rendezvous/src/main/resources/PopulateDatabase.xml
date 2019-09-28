@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 
- * PopulateDatabase.xml
- *
- * Copyright (C) 2017 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- -->
+<!-- * PopulateDatabase.xml * * Copyright (C) 2015 Universidad de Sevilla 
+	* * The use of this project is hereby constrained to the conditions of the 
+	* TDG Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
-	
+
 	<!-- User accounts -->
 
 	<bean id="userAccount1" class="security.UserAccount">
@@ -31,32 +25,375 @@
 	</bean>
 
 	<bean id="userAccount2" class="security.UserAccount">
-		<property name="username" value="customer" />
-		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="username" value="user1" />
+		<property name="password" value="24c9e15e52afc47c225b757e7bee1f9d" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="CUSTOMER" />
+					<property name="authority" value="USER" />
 				</bean>
 			</list>
 		</property>
 	</bean>
 
 	<bean id="userAccount3" class="security.UserAccount">
-		<property name="username" value="super" />
-		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
+		<property name="username" value="user2" />
+		<property name="password" value="7e58d63b60197ceb55a1c487989a3720" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
-				</bean>
-				<bean class="security.Authority">
-					<property name="authority" value="CUSTOMER" />
+					<property name="authority" value="USER" />
 				</bean>
 			</list>
 		</property>
 	</bean>
+
+	<!-- Actors -->
+
+	<bean id="admin" class="domain.Administrator">
+		<property name="name" value="Administrator" />
+		<property name="surname" value="Administrator" />
+		<property name="email" value="admin1@mail.com" />
+		<property name="phoneNumber" value="667855442" />
+		<property name="postalAddress" value="Admin address" />
+		<property name="userAccount" ref="userAccount1" />
+	</bean>
+
+	<bean id="user1" class="domain.User">
+		<property name="name" value="User-1" />
+		<property name="surname" value="User-1" />
+		<property name="email" value="user-1@mail.com" />
+		<property name="phoneNumber" value="655998787" />
+		<property name="postalAddress" value="User-1 address" />
+		<property name="userAccount" ref="userAccount2" />
+<!-- 		<property name="rendezvous">
+			<list>
+				<ref bean="rendezvous1" />
+				<ref bean="rendezvous2" />
+			</list>
+		</property> -->
+	</bean>
+
+	<bean id="user2" class="domain.User">
+		<property name="name" value="User-2" />
+		<property name="surname" value="User-2" />
+		<property name="email" value="user-2@mail.com" />
+		<property name="phoneNumber" value="665876464" />
+		<property name="postalAddress" value="User-2 address" />
+		<property name="userAccount" ref="userAccount3" />
+<!-- 		<property name="rendezvous">
+			<list>
+				<ref bean="rendezvous3" />
+				<ref bean="rendezvous4" />
+			</list>
+		</property>-->
+	</bean>
+
+	<!-- Location -->
+
+	<bean id="location1" class="domain.Location">
+		<property name="latitude" value="34.5" />
+		<property name="longitude" value="78.9" />
+	</bean>
+
+	<bean id="location2" class="domain.Location">
+		<property name="latitude" value="24.5" />
+		<property name="longitude" value="28.9" />
+	</bean>
+
+	<bean id="location3" class="domain.Location">
+		<property name="latitude" value="124.5" />
+		<property name="longitude" value="-12.9" />
+	</bean>
+
+	<bean id="location4" class="domain.Location">
+		<property name="latitude" value="133.5" />
+		<property name="longitude" value="-112.9" />
+	</bean>
+
+	<!-- Comments -->
+
+	<bean id="comment1" class="domain.Comment">
+		<property name="user" ref="user1" />
+		<property name="moment" value="2012/09/10 12:15" />
+		<property name="text" value="Text-1" />
+		<property name="picture" value="http://www.google.com" />
+		<property name="replies">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="comment2" class="domain.Comment">
+		<property name="user" ref="user1" />
+		<property name="moment" value="2013/10/25 21:42" />
+		<property name="text" value="Text-2" />
+		<property name="picture" value="http://www.google.com" />
+		<property name="replies">
+			<list>
+
+			</list>
+		</property>
+	</bean>
+
+	<bean id="comment3" class="domain.Comment">
+		<property name="user" ref="user2" />
+		<property name="moment" value="2014/12/03 04:37" />
+		<property name="text" value="Text-3" />
+		<property name="picture" value="http://www.google.com" />
+		<property name="replies">
+			<list>
+
+			</list>
+		</property>
+	</bean>
+
+	<bean id="comment4" class="domain.Comment">
+		<property name="user" ref="user2" />
+		<property name="moment" value="2015/02/17 22:57" />
+		<property name="text" value="Text-4" />
+		<property name="picture" value="http://www.google.com" />
+		<property name="replies">
+			<list>
+				<ref bean="comment1" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Announcement -->
+
+	<bean id="announcement1" class="domain.Announcement">
+		<property name="title" value="Title 1" />
+		<property name="moment" value="2016/06/27 22:57" />
+		<property name="description" value="Description-1" />
+	</bean>
+
+	<bean id="announcement2" class="domain.Announcement">
+		<property name="title" value="Title 2" />
+		<property name="moment" value="2017/05/07 02:31" />
+		<property name="description" value="Description-2" />
+	</bean>
+
+	<bean id="announcement3" class="domain.Announcement">
+		<property name="title" value="Title 3" />
+		<property name="moment" value="2018/01/10 08:36" />
+		<property name="description" value="Description-3" />
+	</bean>
+
+	<bean id="announcement4" class="domain.Announcement">
+		<property name="title" value="Title 4" />
+		<property name="moment" value="2015/02/17 22:57" />
+		<property name="description" value="Description-4" />
+	</bean>
+
+	<!-- Question -->
+
+	<bean id="question1" class="domain.Question">
+		<property name="text" value="Text-1" />
+		<property name="answers" >
+			<list>
+				<ref bean="answer1" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="question2" class="domain.Question">
+		<property name="text" value="Text-2" />
+		<property name="answers" >
+			<list>
+				<ref bean="answer2" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="question3" class="domain.Question">
+		<property name="text" value="Text-3" />
+		<property name="answers" >
+			<list>
+				<ref bean="answer3" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="question4" class="domain.Question">
+		<property name="text" value="Text-4" />
+		<property name="answers" >
+			<list>
+				<ref bean="answer4" />
+			</list>
+		</property>
+	</bean>
 	
-	<!-- Other domain beans come here -->	
 	
+	<!-- Answer -->
+	
+	<bean id="answer1" class="domain.Answer">
+		<property name="text" value="Answer-1" />
+		<property name="user" ref="user1" />
+	</bean>
+	
+	<bean id="answer2" class="domain.Answer">
+		<property name="text" value="Answer-2" />
+		<property name="user" ref="user1" />
+	</bean>
+	
+	<bean id="answer3" class="domain.Answer">
+		<property name="text" value="Answer-3" />
+		<property name="user" ref="user2" />
+	</bean>
+	
+	<bean id="answer4" class="domain.Answer">
+		<property name="text" value="Answer-4" />
+		<property name="user" ref="user2" />
+	</bean>
+	
+	<!-- Rendezvous -->
+
+	<bean id="rendezvous1" class="domain.Rendezvous">
+		<property name="name" value="Name-1" />
+		<property name="description" value="Description-1" />
+		<property name="moment" value="2018/12/12 12:12" />
+		<property name="picture" value="http://www.google.com" />
+		<property name="gpsCoordinates" ref="location1" />
+		<property name="finalMode" value="true" />
+		<property name="isAdultContent" value="true" />
+		<property name="flag" value="PASSED" />
+		<property name="user" ref="user1"/>
+		<property name="linkedRendezvous">
+			<list>
+			</list>	
+		</property>
+		<property name="listAttendants">
+			<list>
+				<ref bean="user2" />
+			</list>
+		</property>
+		<property name="announcements">
+			<list>
+				<ref bean="announcement1" />
+			</list>
+		</property>
+		<property name="comments">
+			<list>
+				<ref bean="comment1" />
+			</list>
+		</property>
+		<property name="questions">
+			<list>
+				<ref bean="question1" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="rendezvous2" class="domain.Rendezvous">
+		<property name="name" value="Name-2" />
+		<property name="description" value="Description-2" />
+		<property name="moment" value="2018/12/12 12:12" />
+		<property name="picture" value="http://www.google.com" />
+		<property name="gpsCoordinates" ref="location2" />
+		<property name="finalMode" value="false" />
+		<property name="flag" value="PASSED" />
+		<property name="isAdultContent" value="false" />
+		<property name="user" ref="user1"/>
+		<property name="linkedRendezvous">
+			<list>
+				<ref bean="rendezvous1"/>
+			</list>	
+		</property>
+		<property name="listAttendants">
+			<list>
+				<ref bean="user2" />
+			</list>
+		</property>
+		<property name="announcements">
+			<list>
+				<ref bean="announcement2" />
+			</list>
+		</property>
+		<property name="comments">
+			<list>
+				<ref bean="comment2" />
+			</list>
+		</property>
+		<property name="questions">
+			<list>
+				<ref bean="question2" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="rendezvous3" class="domain.Rendezvous">
+		<property name="name" value="Name-3" />
+		<property name="description" value="Description-3" />
+		<property name="moment" value="2018/12/12 12:12" />
+		<property name="picture" value="http://www.google.com" />
+		<property name="gpsCoordinates" ref="location3" />
+		<property name="finalMode" value="false" />
+		<property name="flag" value="PASSED" />
+		<property name="isAdultContent" value="false" />
+		<property name="user" ref="user2"/>
+			<property name="linkedRendezvous">
+			<list>
+				<ref bean="rendezvous2"/>
+			</list>	
+		</property>
+		<property name="listAttendants">
+			<list>
+				<ref bean="user1" />
+			</list>
+		</property>
+		<property name="announcements">
+			<list>
+				<ref bean="announcement3" />
+			</list>
+		</property>
+		<property name="comments">
+			<list>
+				<ref bean="comment3" />
+			</list>
+		</property>
+		<property name="questions">
+			<list>
+				<ref bean="question3" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="rendezvous4" class="domain.Rendezvous">
+		<property name="name" value="Name-4" />
+		<property name="description" value="Description-4" />
+		<property name="moment" value="2018/12/12 12:12" />
+		<property name="picture" value="http://www.google.com" />
+		<property name="gpsCoordinates" ref="location4" />
+		<property name="finalMode" value="false" />
+		<property name="flag" value="DELETED" />
+		<property name="isAdultContent" value="false" />
+		<property name="user" ref="user2"/>
+		<property name="linkedRendezvous">
+			<list>
+				<ref bean="rendezvous3"/>
+			</list>	
+		</property>
+		<property name="listAttendants">
+			<list>
+				<ref bean="user1" />
+			</list>
+		</property>
+		<property name="announcements">
+			<list>
+				<ref bean="announcement4" />
+			</list>
+		</property>
+		<property name="comments">
+			<list>
+				<ref bean="comment4" />
+			</list>
+		</property>
+		<property name="questions">
+			<list>
+				<ref bean="question4" />
+			</list>
+		</property>
+	</bean>
+
 </beans>
